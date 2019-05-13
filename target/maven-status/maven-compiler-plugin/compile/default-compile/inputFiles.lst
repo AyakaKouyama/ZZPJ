@@ -1,7 +1,9 @@
-F:\moje_studia\Semestr VI\java\zzpj\src\main\java\com\zzpj\dtos\BookDto.java
-F:\moje_studia\Semestr VI\java\zzpj\src\main\java\com\zzpj\repositories\BookRepository.java
-F:\moje_studia\Semestr VI\java\zzpj\src\main\java\com\zzpj\services\BookService.java
-F:\moje_studia\Semestr VI\java\zzpj\src\main\java\com\zzpj\services\BookServiceImpl.java
-F:\moje_studia\Semestr VI\java\zzpj\src\main\java\com\zzpj\entities\Book.java
-F:\moje_studia\Semestr VI\java\zzpj\src\main\java\com\zzpj\ZzpjApplication.java
-F:\moje_studia\Semestr VI\java\zzpj\src\main\java\com\zzpj\controllers\BookController.java
+C:\Users\Adrian Granosik\source\repos\ZZPJ\src\main\java\com\zzpj\ZzpjApplication.java
+C:\Users\Adrian Granosik\source\repos\ZZPJ\src\main\java\com\zzpj\entities\Book.java
+C:\Users\Adrian Granosik\source\repos\ZZPJ\src\main\java\com\zzpj\controllers\BookController.java
+C:\Users\Adrian Granosik\source\repos\ZZPJ\src\main\java\com\zzpj\dtos\BookDto.java
+C:\Users\Adrian Granosik\source\repos\ZZPJ\src\main\java\com\zzpj\services\impl\BaseServiceImpl.java
+C:\Users\Adrian Granosik\source\repos\ZZPJ\src\main\java\com\zzpj\repositories\BookRepository.java
+C:\Users\Adrian Granosik\source\repos\ZZPJ\src\main\java\com\zzpj\services\impl\BookServiceImpl.java
+C:\Users\Adrian Granosik\source\repos\ZZPJ\src\main\java\com\zzpj\services\interfaces\BookService.java
+C:\Users\Adrian Granosik\source\repos\ZZPJ\src\main\java\com\zzpj\services\interfaces\BaseService.java
