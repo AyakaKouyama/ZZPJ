@@ -6,5 +6,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface BookService extends BaseService<BookRepository, Book> {
-    // place to add additional methods for books
+
+    Book add(Book book);
+
+    Book update(Book book);
 }
