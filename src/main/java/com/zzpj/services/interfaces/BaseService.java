@@ -1,14 +1,22 @@
 package com.zzpj.services.interfaces;
 
 import java.util.List;
-import java.util.Optional;
 
+/**
+ * base service define base CRUD operation which won't need to be implemented by each service
+ *
+ * @param <TRepository>
+ * @param <TModel>
+ */
 public interface BaseService<TRepository, TModel> {
-    // base service define base CRUD operation which won't need to be implemented by each service
 
     List<TModel> findAll();
+
     TModel add(TModel model);
-    TModel save(Long id, TModel model);
+
+    TModel update(TModel model);
+
     void deleteById(Long id);
-    Optional<TModel> findById(Long id);
+
+    TModel findById(Long id);
 }

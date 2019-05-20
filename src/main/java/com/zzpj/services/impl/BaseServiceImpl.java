@@ -1,5 +1,6 @@
 package com.zzpj.services.impl;
 
+import com.zzpj.exceptions.EntityNotFoundException;
 import com.zzpj.services.interfaces.BaseService;
 import org.springframework.data.repository.CrudRepository;
 
@@ -25,18 +26,25 @@ public class BaseServiceImpl<TRepository extends CrudRepository<TModel, Long>, T
     }
 
     @Override
-    public TModel save(Long id, TModel model) {
+    public TModel update(TModel model) {
         return repository.save(model);
     }
 
     @Override
     public void deleteById(Long id) {
+        if(repository.existsById(id)){
+            throw entityNotFoundException(id);
+        }
         repository.deleteById(id);
     }
 
     @Override
-    public Optional<TModel> findById(Long id) {
-        return repository.findById(id);
+    public TModel findById(Long id) {
+        return repository.findById(id).orElseThrow( () -> entityNotFoundException(id));
+    }
+
+    private EntityNotFoundException entityNotFoundException(Long id){
+        return new EntityNotFoundException("Entity with id " + id  + " not found.");
     }
 
 }
