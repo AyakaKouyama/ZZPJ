@@ -39,6 +39,11 @@ target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.l
 .idea/**/shelf
 .idea/compiler.xml 
 .idea/vcs.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/workspace.xml
+
 zzpj.iml
 
 # Generated files
@@ -56,6 +61,8 @@ zzpj.iml
 # Gradle
 .idea/**/gradle.xml
 .idea/**/libraries
+
+
 
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,

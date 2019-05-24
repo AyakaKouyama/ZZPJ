@@ -36,10 +36,10 @@ private final PublisherRepository publisherRepository;
         }
 
 private EntityNotFoundException entityNotFoundException(String name) {
-        return new EntityNotFoundException("Category with name " + name + " not found.");
+        return new EntityNotFoundException("Publisher with name " + name + " not found.");
         }
 
 private EntityAlreadyExistsException entityAlreadyExistsException(String name) {
-        return new EntityAlreadyExistsException("Category with name " + name + " already exists.");
+        return new EntityAlreadyExistsException("Publisher with name " + name + " already exists.");
         }
         }

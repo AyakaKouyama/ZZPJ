@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/publisher")
+@RequestMapping("/publishers")
 public class PublisherController {
 
     private final PublisherService publisherService;
