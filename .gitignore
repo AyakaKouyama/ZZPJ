@@ -25,6 +25,7 @@ hs_err_pid*
 target/zzpj-0.0.1-SNAPSHOT.jar
 target/zzpj-0.0.1-SNAPSHOT.jar.original
 target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
 .idea/workspace.xml
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
