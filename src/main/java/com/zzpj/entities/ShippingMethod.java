@@ -25,7 +25,7 @@ public class ShippingMethod {
     @Column(name = "name", unique = true)
     private String name;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private double price;
 
     @Version
