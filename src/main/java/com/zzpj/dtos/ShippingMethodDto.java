@@ -12,12 +12,11 @@ import javax.validation.constraints.NotEmpty;
 @JsonPropertyOrder({"id", "name", "price"})
 public class ShippingMethodDto {
 
-    @NotEmpty(message = "name cannot be null!")
     public Long id;
 
     @NotEmpty(message = "name cannot be null!")
     public String name;
 
-    @NotEmpty(message = "name cannot be null!")
+    @NotEmpty(message = "price cannot be null!")
     public Double price;
 }

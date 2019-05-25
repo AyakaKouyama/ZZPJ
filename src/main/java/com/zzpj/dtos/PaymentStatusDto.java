@@ -11,7 +11,6 @@ import javax.validation.constraints.NotEmpty;
 @JsonPropertyOrder({"id", "name"})
 public class PaymentStatusDto {
 
-    @NotEmpty(message = "name cannot be null!")
     public Long id;
 
     @NotEmpty(message = "name cannot be null!")
