@@ -15,24 +15,37 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import java.math.BigInteger;
 
 @Data
 @NoArgsConstructor
 @Entity
 @Table(name = "book")
 @NamedQueries(@NamedQuery(name = "Book.existsByName",
-        query = "SELECT CASE WHEN COUNT(b) > 0 THEN true ELSE false END FROM Book b WHERE b.name = :name"))
+        query = "SELECT CASE WHEN COUNT(b) > 0 THEN true ELSE false END FROM Book b WHERE b.title = :title"))
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false, unique = true)
-    private String name;
+    @Column(name = "title", nullable = false, unique = true)
+    private String title;
 
     @Column(name = "author", nullable = false)
     private String author;
+
+    @Column(name = "price", nullable = false)
+    private BigInteger price;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "number_of_pages")
+    private Integer numberOfPages;
+
+    @Column(name = "ISBN")
+    private String isbn;
 
     @ManyToOne
     @JoinColumn(name = "category_id",

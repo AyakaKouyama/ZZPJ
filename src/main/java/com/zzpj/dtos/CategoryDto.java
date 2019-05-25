@@ -6,10 +6,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@JsonPropertyOrder({"id", "name"})
+@JsonPropertyOrder({"id", "name", "version"})
 public class CategoryDto {
 
     public Long id;
 
     public String name;
+
+    public Long version;
 }
