@@ -10,9 +10,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user")
 @NamedQueries({
-        @NamedQuery(name = "User.existsByLogin",
+        @NamedQuery(name = "User.existsByName",
                 query = "SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM User u WHERE u.login = :login"),
-        @NamedQuery(name = "User.findByLogin", query = "SELECT u FROM User u WHERE u.login = :login")
+        @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.login = :login")
 })
 
 public class User {
@@ -35,7 +35,7 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "role_id",
             foreignKey = @ForeignKey(name = "FK__user_role_id"))
-    private Role roleId;
+    private Role role;
 
     @OneToOne
     @JoinColumn(name = "userDetails_id",

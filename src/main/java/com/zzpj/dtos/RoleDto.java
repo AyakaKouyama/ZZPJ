@@ -8,7 +8,10 @@ import lombok.NoArgsConstructor;
 @Data
 @JsonPropertyOrder({"name", "version"})
 public class RoleDto {
-    private String name;
 
-    private Long version;
+    public Long id;
+
+    public String name;
+
+    public Long version;
 }

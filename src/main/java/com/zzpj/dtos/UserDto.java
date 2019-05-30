@@ -11,17 +11,19 @@ import javax.validation.constraints.NotEmpty;
 @JsonPropertyOrder({"login", "email", "passwordHash", "roleId", "userDetails", "version"})
 public class UserDto {
 
-    private String login;
+    public Long id;
+
+    public String login;
 
     @NotEmpty(message = "Email cannot be empty!")
-    private String email;
+    public String email;
 
     @NotEmpty(message = "Password Hash cannot be empty!")
-    private String passwordHash;
+    public String passwordHash;
 
-    private RoleDto roleId;
+    public RoleDto role;
 
-    private UserDetailsDto userDetails;
+    public UserDetailsDto userDetails;
 
-    private Long version;
+    public Long version;
 }

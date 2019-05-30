@@ -11,23 +11,25 @@ import javax.validation.constraints.NotNull;
 @JsonPropertyOrder({"street", "streetNumber", "flatNumber", "phoneNumber", "city", "country", "firstName", "lastName", "version"})
 public class UserDetailsDto {
 
-    private String street;
+    public Long id;
 
-    private String streetNumber;
+    public String street;
 
-    private String flatNumber;
+    public String streetNumber;
 
-    private Long phoneNumber;
+    public String flatNumber;
 
-    private String city;
+    public Long phoneNumber;
 
-    private String country;
+    public String city;
+
+    public String country;
 
     @NotNull(message = "First name cannot be null!")
-    private String firstName;
+    public String firstName;
 
     @NotNull(message = "Last name cannot be null!")
-    private String lastName;
+    public String lastName;
 
-    private Long version;
+    public Long version;
 }
