@@ -8,7 +8,9 @@ import com.zzpj.repositories.CategoryRepository;
 import com.zzpj.repositories.ShippingMethodRepository;
 import com.zzpj.services.interfaces.ShippingMethodService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ShippingMethodServiceImpl extends BaseServiceImpl<ShippingMethodRepository, ShippingMethod> implements ShippingMethodService {
 
     private final ShippingMethodRepository shippingMethodRepository;
