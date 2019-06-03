@@ -1,16 +1,19 @@
 package com.zzpj.dtos;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+import javax.validation.constraints.NotEmpty;
+
+@NoArgsConstructor
+@Data
 @JsonPropertyOrder({"id", "name", "version"})
-public class CategoryDto {
+public class RoleDto {
 
     public Long id;
 
+    @NotEmpty(message = "Name cannot be null!")
     public String name;
 
     public Long version;

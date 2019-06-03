@@ -4,14 +4,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+
 @Getter
 @Setter
-@JsonPropertyOrder({"id", "name", "version"})
-public class CategoryDto {
+@JsonPropertyOrder({"id", "name"})
+public class PaymentStatusDto {
 
     public Long id;
 
+    @NotEmpty(message = "name cannot be null!")
     public String name;
-
-    public Long version;
 }
