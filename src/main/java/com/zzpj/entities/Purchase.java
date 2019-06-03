@@ -15,6 +15,11 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id",
+            foreignKey = @ForeignKey(name = "FK__purchase_user"))
+    private User user;
+
     @Version
     private Long version;
 
