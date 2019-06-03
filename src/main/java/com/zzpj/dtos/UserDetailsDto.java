@@ -4,25 +4,32 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
 @Data
-@JsonPropertyOrder({"street", "streetNumber", "flatNumber", "phoneNumber", "city", "country", "firstName", "lastName", "version"})
+@JsonPropertyOrder({"id", "street", "streetNumber", "flatNumber", "phoneNumber", "city", "country", "firstName", "lastName", "version"})
 public class UserDetailsDto {
 
     public Long id;
 
+    @NotEmpty(message = "Street cannot be null!")
     public String street;
 
+    @NotEmpty(message = "Street number cannot be null!")
     public String streetNumber;
 
+    @NotEmpty(message = "Flat number cannot be null!")
     public String flatNumber;
 
+    @NotEmpty(message = "Phone number cannot be null!")
     public Long phoneNumber;
 
+    @NotEmpty(message = "City cannot be null!")
     public String city;
 
+    @NotEmpty(message = "Country cannot be null!")
     public String country;
 
     @NotNull(message = "First name cannot be null!")

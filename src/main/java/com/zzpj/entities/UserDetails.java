@@ -20,22 +20,22 @@ public class UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "street")
+    @Column(name = "street", nullable = false)
     private String street;
 
-    @Column(name = "streetNumber")
+    @Column(name = "streetNumber", nullable = false)
     private String streetNumber;
 
-    @Column(name = "flatNumber")
+    @Column(name = "flatNumber", nullable = false)
     private String flatNumber;
 
-    @Column(name = "phoneNumber")
+    @Column(name = "phoneNumber", nullable = false)
     private Long phoneNumber;
 
-    @Column(name = "city")
+    @Column(name = "city", nullable = false)
     private String city;
 
-    @Column(name = "country")
+    @Column(name = "country", nullable = false)
     private String country;
 
     @Column(name = "firstName", nullable = false)

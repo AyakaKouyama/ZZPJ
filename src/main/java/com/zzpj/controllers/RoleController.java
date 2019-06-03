@@ -28,7 +28,7 @@ public class RoleController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    ResponseEntity<List<RoleDto>> getAllRole() {
+    ResponseEntity<List<RoleDto>> getAllRoles() {
         List<RoleDto> roleDtos = roleService.findAll()
                 .stream()
                 .map(role ->
