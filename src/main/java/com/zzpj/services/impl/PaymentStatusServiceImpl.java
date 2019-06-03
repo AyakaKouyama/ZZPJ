@@ -7,7 +7,9 @@ import com.zzpj.exceptions.EntityNotFoundException;
 import com.zzpj.repositories.PaymentStatusRepository;
 import com.zzpj.services.interfaces.PaymentStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PaymentStatusServiceImpl extends BaseServiceImpl<PaymentStatusRepository, PaymentStatus> implements PaymentStatusService {
 
     private final PaymentStatusRepository paymentStatusRepository;
