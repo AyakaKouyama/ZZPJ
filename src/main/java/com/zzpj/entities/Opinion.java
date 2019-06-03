@@ -11,8 +11,8 @@ import javax.persistence.*;
 @Table(name = "opinion")
 @NamedQueries(@NamedQuery(name = "Opinion.getByBookId",
         query = "SELECT o FROM Opinion o WHERE o.book.id = :bookId"))
-//@NamedQueries(@NamedQuery(name = "Opinion.getByUserId",
-//query = "SELECT o FROM Opinion o WHERE o.user.id = :userId"))
+@NamedQueries(@NamedQuery(name = "Opinion.getByUserId",
+query = "SELECT o FROM Opinion o WHERE o.user.id = :userId"))
 public class Opinion {
 
     @Id
@@ -27,10 +27,10 @@ public class Opinion {
             foreignKey = @ForeignKey(name = "FK__book_id"))
     private Book book;
 
-   // @ManyToOne
-   // @JoinColumn(name = "user_id",
-    //        foreignKey = @ForeignKey(name = "FK__user_id"))
-   // private User user;
+   @ManyToOne
+   @JoinColumn(name = "user_id",
+           foreignKey = @ForeignKey(name = "FK__user_id"))
+    private User user;
 
     @Version
     private Long version;

@@ -9,10 +9,10 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "Ordered_Book")
-//@NamedQueries(@NamedQuery(name = "OrderedBook.getByBookId",
-        //query = "SELECT o FROM Ordered_Book o WHERE o.book.id = :bookId"))
-//@NamedQueries(@NamedQuery(name = "OrderedBook.getByPurchaseId",
-        // = "SELECT o FROM Ordered_Book o WHERE o.purchase.id = :purchaseId"))
+@NamedQueries(@NamedQuery(name = "OrderedBook.getByBookId",
+        query = "SELECT o FROM Ordered_Book o WHERE o.book.id = :bookId"))
+@NamedQueries(@NamedQuery(name = "OrderedBook.getByPurchaseId",
+        query = "SELECT o FROM Ordered_Book o WHERE o.purchase.id = :purchaseId"))
 public class OrderedBook {
 
     @Id
@@ -24,8 +24,11 @@ public class OrderedBook {
             foreignKey = @ForeignKey(name = "FK__book_id"))
     private Book book;
 
-    //@ManyToOne
-    //@JoinColumn(name = "purchase_id",
-            //foreignKey = @ForeignKey(name = "FK__purchase_id"))
-    //private Purchase purchase;
+    @ManyToOne
+    @JoinColumn(name = "purchase_id",
+            foreignKey = @ForeignKey(name = "FK__purchase_id"))
+    private Purchase purchase;
+
+    @Version
+    private Long version;
 }
