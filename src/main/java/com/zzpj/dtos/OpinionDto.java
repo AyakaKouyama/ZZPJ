@@ -14,5 +14,5 @@ public class OpinionDto {
 
     private BookDto book;
 
-    // private UserDto user;
+    private UserDto user;
 }

@@ -16,10 +16,10 @@ public class OpinionServiceImpl extends BaseServiceImpl<OpinionRepository, Opini
     public OpinionServiceImpl(OpinionRepository opinionRepository){
         super(opinionRepository);
     }
-    @Override
-    public List<Opinion> getByBookId(int bookId) {
-        return  repository.getByBookId(bookId);
-    }
+//    @Override
+//    public List<Opinion> getByBookId(int bookId) {
+//        return  repository.getByBookId(bookId);
+//    }
 
 
     @Override

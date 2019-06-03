@@ -15,7 +15,7 @@ public interface OrderedBookService extends BaseService<OrderedBookRepository, O
     OrderedBook update(OrderedBook orderedBook);
 
 
-    List<OrderedBook> getByBookId(int bookId);
+    //List<OrderedBook> getByBookId(int bookId);
 
     //List<OrderedBook> getByUserId(int userId);
 }

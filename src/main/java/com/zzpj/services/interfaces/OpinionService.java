@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public interface OpinionService extends BaseService<OpinionRepository, Opinion>{
 
-    List<Opinion> getByBookId(int bookId);
+    //List<Opinion> getByBookId(int bookId);
 
     //List<Opinion> getByUserId(int userId);
 

@@ -12,5 +12,5 @@ public class OrderedBookDto {
 
     private BookDto book;
 
-    //private PurchaseDto purchase;
+    private PurchaseDto purchase;
 }

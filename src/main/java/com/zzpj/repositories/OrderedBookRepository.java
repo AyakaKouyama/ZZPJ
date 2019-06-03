@@ -12,7 +12,7 @@ public interface OrderedBookRepository extends CrudRepository<OrderedBook, Long>
 
     OrderedBook save(OrderedBook ob);
 
-    List<OrderedBook> getByBookId(int bookId);
+    //List<OrderedBook> getByBookId(int bookId);
 
     //List<OrderedBook> getByUserId(int userId);
 }

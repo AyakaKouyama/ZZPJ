@@ -1,8 +1,12 @@
 package com.zzpj.controllers;
 
 import com.zzpj.dtos.OpinionDto;
+import com.zzpj.entities.Book;
 import com.zzpj.entities.Opinion;
+import com.zzpj.entities.User;
+import com.zzpj.services.interfaces.BookService;
 import com.zzpj.services.interfaces.OpinionService;
+import com.zzpj.services.interfaces.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,14 +22,19 @@ import java.util.stream.Collectors;
 public class OpinionController {
 
     private OpinionService opinionService;
+    private BookService bookService;
+    private UserService userService;
     private ModelMapper modelMapper;
 
-
-
     @Autowired
-    public OpinionController(OpinionService opinionService, ModelMapper modelMapper){
+    public OpinionController(OpinionService opinionService,
+                             BookService bookService,
+                             UserService userService,
+                             ModelMapper modelMapper){
         this.opinionService = opinionService;
         this.modelMapper = modelMapper;
+        this.userService = userService;
+        this.bookService = bookService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -47,13 +56,26 @@ public class OpinionController {
         return ResponseEntity.ok(result);
     }
 
-//    @RequestMapping(method = RequestMethod.POST)
-//    ResponseEntity addOpinion(@Valid @RequestBody OpinionDto bookDto) {
-//        Opinion book = modelMapper.map(bookDto, Opinion.class);
-//        Category category = categoryService.findById(bookDto.getCategory().getId());
-//        book.setCategory(category);
-//        bookService.add(book);
-//        return ResponseEntity.status(HttpStatus.CREATED).build();
-//    }
+    @RequestMapping(method = RequestMethod.POST)
+    ResponseEntity addOpinion(@Valid @RequestBody OpinionDto opinionDto) {
+        Opinion opinion = modelMapper.map(opinionDto, Opinion.class);
+        Book book = bookService.findById(opinionDto.getBook().getId());
+        User user = userService.findById(opinionDto.getUser().getId());
+        opinion.setBook(book);
+        opinion.setUser(user);
+        opinionService.add(opinion);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    ResponseEntity updateBook(@PathVariable Long id, @RequestBody OpinionDto opinionDto) {
+        Opinion opinion = modelMapper.map(opinionDto, Opinion.class);
+        Book book = bookService.findById(opinionDto.getBook().getId());
+        User user = userService.findById(opinionDto.getUser().getId());
+        opinion.setBook(book);
+        opinion.setUser(user);
+        opinionService.update(opinion);
+        return ResponseEntity.ok(opinion);
+    }
 
 }

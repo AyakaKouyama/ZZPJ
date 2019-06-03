@@ -16,10 +16,10 @@ public class OrderedBookServiceImpl extends BaseServiceImpl<OrderedBookRepositor
         super(orderedBookRepository);
     }
 
-    @Override
-    public List<OrderedBook> getByBookId(int bookId) {
-        return  repository.getByBookId(bookId);
-    }
+//    @Override
+//    public List<OrderedBook> getByBookId(int bookId) {
+//        return  repository.getByBookId(bookId);
+//    }
 
 
     @Override
@@ -35,6 +35,8 @@ public class OrderedBookServiceImpl extends BaseServiceImpl<OrderedBookRepositor
         opinion.setVersion(bookFromRepository.getVersion());
         return repository.save(opinion);
     }
+
+
 
     private EntityNotFoundException entityNotFoundException(Long id) {
         return new EntityNotFoundException("OrderedBook with id " + id + " not found");

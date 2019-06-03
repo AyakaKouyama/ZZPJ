@@ -9,10 +9,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "opinion")
-@NamedQueries(@NamedQuery(name = "Opinion.getByBookId",
-        query = "SELECT o FROM Opinion o WHERE o.book.id = :bookId"))
-@NamedQueries(@NamedQuery(name = "Opinion.getByUserId",
-query = "SELECT o FROM Opinion o WHERE o.user.id = :userId"))
+//@NamedQueries({
+//        @NamedQuery(name = "Opinion.getByBookId",
+//                query = "SELECT o FROM Opinion o WHERE o.book.id = :bookId"),
+//        @NamedQuery(name = "Opinion.getByUserId",
+//                query = "SELECT o FROM Opinion o WHERE o.user.id = :userId")
+//})
 public class Opinion {
 
     @Id
