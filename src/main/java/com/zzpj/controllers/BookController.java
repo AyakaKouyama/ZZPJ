@@ -1,6 +1,7 @@
 package com.zzpj.controllers;
 
 import com.zzpj.dtos.BookDto;
+import com.zzpj.dtos.GetBookDto;
 import com.zzpj.entities.Book;
 import com.zzpj.entities.Category;
 import com.zzpj.services.interfaces.BookService;
@@ -35,11 +36,11 @@ public class BookController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    ResponseEntity<List<BookDto>> getAllBooks() {
-        List<BookDto> bookDtoList = bookService.findAll()
+    ResponseEntity<List<GetBookDto>> getAllBooks() {
+        List<GetBookDto> bookDtoList = bookService.findAll()
                 .stream()
                 .map(book ->
-                        modelMapper.map(book, BookDto.class)
+                        modelMapper.map(book, GetBookDto.class)
                 )
                 .collect(
                         Collectors.toList());
@@ -47,16 +48,16 @@ public class BookController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    ResponseEntity<BookDto> getBookById(@PathVariable Long id) {
+    ResponseEntity<GetBookDto> getBookById(@PathVariable Long id) {
         Book book = bookService.findById(id);
-        BookDto result = modelMapper.map(book, BookDto.class);
+        GetBookDto result = modelMapper.map(book, GetBookDto.class);
         return ResponseEntity.ok(result);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity addBook(@Valid @RequestBody BookDto bookDto) {
         Book book = modelMapper.map(bookDto, Book.class);
-        Category category = categoryService.findById(bookDto.getCategory().getId());
+        Category category = categoryService.findById(bookDto.getCategoryId());
         book.setCategory(category);
         bookService.add(book);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -65,7 +66,7 @@ public class BookController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     ResponseEntity updateBook(@PathVariable Long id, @RequestBody BookDto bookDto) {
         Book book = modelMapper.map(bookDto, Book.class);
-        Category category = categoryService.findById(bookDto.getCategory().getId());
+        Category category = categoryService.findById(bookDto.getCategoryId());
         book.setId(id);
         book.setCategory(category);
         bookService.update(book);

@@ -3,6 +3,7 @@ package com.zzpj.entities;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -49,7 +50,7 @@ public class User {
             foreignKey = @ForeignKey(name = "FK__user_role_id"))
     private Role role;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userDetails_id",
             foreignKey = @ForeignKey(name = "FK__user_userDetails_id"))
     private UserDetails userDetails;

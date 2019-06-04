@@ -19,7 +19,8 @@ public class UserServiceImpl extends BaseServiceImpl<UserRepository, User> imple
     }
 
     @Override
-    public User add(User user) {
+    public User
+    add(User user) {
         user.setVersion(0L);
         return userRepository.save(user);
     }

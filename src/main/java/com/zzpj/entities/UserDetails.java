@@ -38,7 +38,7 @@ public class UserDetails {
     private String flatNumber;
 
     @Column(name = "phoneNumber", nullable = false)
-    private Long phoneNumber;
+    private String phoneNumber;
 
     @Column(name = "city", nullable = false)
     private String city;

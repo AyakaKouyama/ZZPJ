@@ -1,5 +1,6 @@
 package com.zzpj.controllers;
 
+import com.zzpj.dtos.GetOrderedBookDto;
 import com.zzpj.dtos.OrderedBookDto;
 import com.zzpj.entities.Book;
 import com.zzpj.entities.OrderedBook;
@@ -42,11 +43,11 @@ public class OrderedBookController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    ResponseEntity<List<OrderedBookDto>> getAllBooks() {
-        List<OrderedBookDto> orderedBookDtoList = orderedBookService.findAll()
+    ResponseEntity<List<GetOrderedBookDto>> getAllBooks() {
+        List<GetOrderedBookDto> orderedBookDtoList = orderedBookService.findAll()
                 .stream()
                 .map(orderedBook ->
-                        modelMapper.map(orderedBook, OrderedBookDto.class)
+                        modelMapper.map(orderedBook, GetOrderedBookDto.class)
                 )
                 .collect(
                         Collectors.toList());
@@ -54,15 +55,15 @@ public class OrderedBookController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    ResponseEntity<OrderedBookDto> getBookById(@PathVariable Long id) {
+    ResponseEntity<GetOrderedBookDto> getBookById(@PathVariable Long id) {
         OrderedBook orderedBook = orderedBookService.findById(id);
-        OrderedBookDto result = modelMapper.map(orderedBook, OrderedBookDto.class);
+        GetOrderedBookDto result = modelMapper.map(orderedBook, GetOrderedBookDto.class);
         return ResponseEntity.ok(result);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity addBook(@Valid @RequestBody OrderedBookDto orderedBookDto) {
-        OrderedBook orderedBook = modelMapper.map(orderedBookDto, OrderedBook.class);
+        OrderedBook orderedBook = new OrderedBook();
         Book book = bookService.findById(orderedBookDto.getBookId());
         Purchase purchase = purchaseService.findById(orderedBookDto.getPurchaseId());
         orderedBook.setPurchase(purchase);

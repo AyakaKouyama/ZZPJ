@@ -24,7 +24,7 @@ public class UserDetailsDto {
     public String flatNumber;
 
     @NotEmpty(message = "Phone number cannot be null!")
-    public Long phoneNumber;
+    public String phoneNumber;
 
     @NotEmpty(message = "City cannot be null!")
     public String city;

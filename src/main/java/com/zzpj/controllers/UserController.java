@@ -63,8 +63,8 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity addUser(@Valid @RequestBody UserDto userDto) {
         User user = modelMapper.map(userDto, User.class);
-        Role role = roleService.findById(userDto.getRole().getId());
-        UserDetails userDetails = userDetailsService.findById(userDto.getUserDetails().getId());
+        Role role = roleService.findById(userDto.getRoleId());
+        UserDetails userDetails = modelMapper.map(userDto.getUserDetails(), UserDetails.class);
         user.setRole(role);
         user.setUserDetails(userDetails);
         userService.add(user);
@@ -74,7 +74,7 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     ResponseEntity updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
         User user = modelMapper.map(userDto, User.class);
-        Role role = roleService.findById(userDto.getRole().getId());
+        Role role = roleService.findById(userDto.getRoleId());
         UserDetails userDetails = userDetailsService.findById(userDto.getUserDetails().getId());
         user.setId(id);
         user.setRole(role);

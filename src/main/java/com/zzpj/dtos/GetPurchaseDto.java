@@ -1,8 +1,17 @@
 package com.zzpj.dtos;
 
-import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class GetPurchaseDto {
+
     private Long id;
 
     @NotNull(message = "user cannot be null!")
@@ -13,7 +22,7 @@ public class GetPurchaseDto {
     private PaymentStatusDto paymentStatus;
 
     @NotNull(message = "price cannot be null!")
-    private double price;
+    private BigDecimal price;
 
     private ShippingMethodDto shippingMethod;
 }

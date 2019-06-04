@@ -19,7 +19,7 @@ import javax.persistence.Version;
 @Table(name = "role")
 @NamedQueries({
         @NamedQuery(name = "Role.existsByName",
-                query = "SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Role r WHERE r.name = :name"),
+                query = "SELECT CASE WHEN COUNT(r) > 0 THEN true ELSE false END FROM Role r WHERE r.name = :name"),
         @NamedQuery(name = "Role.findByName", query = "SELECT r FROM Role r WHERE r.name = :name")
 })
 

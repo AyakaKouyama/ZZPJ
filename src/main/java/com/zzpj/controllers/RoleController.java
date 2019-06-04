@@ -53,7 +53,7 @@ public class RoleController {
     ResponseEntity addRole(@Valid @RequestBody RoleDto roleDto) {
         Role role = modelMapper.map(roleDto, Role.class);
         roleService.add(role);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.ok(role);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)

@@ -8,6 +8,8 @@ import com.zzpj.services.interfaces.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 public class PurchaseServiceImpl extends BaseServiceImpl<PurchaseRepository, Purchase> implements PurchaseService {
 
@@ -22,6 +24,8 @@ public class PurchaseServiceImpl extends BaseServiceImpl<PurchaseRepository, Pur
     @Override
     public Purchase add(Purchase purchase) {
         purchase.setVersion(0L);
+        // wartość zamówienia powinna być obliczana
+        purchase.setPrice(new BigDecimal(0));
         return this.purchaseRepository.save(purchase);
     }
 

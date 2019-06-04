@@ -12,6 +12,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -34,7 +35,7 @@ public class ShippingMethod {
     private String name;
 
     @Column(name = "price", nullable = false)
-    private double price;
+    private BigDecimal price;
 
     @Version
     private Long version;
