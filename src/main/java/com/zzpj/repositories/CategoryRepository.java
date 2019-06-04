@@ -1,6 +1,6 @@
 package com.zzpj.repositories;
 
-import com.zzpj.entities.Publisher;
+import com.zzpj.entities.Category;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,12 +8,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface PublisherRepository extends CrudRepository<Publisher, Long> {
-    List<Publisher> findAll();
+public interface CategoryRepository extends CrudRepository<Category, Long> {
 
-    Optional<Publisher> findById(Long id);
+    List<Category> findAll();
+
+    Optional<Category> findById(Long id);
 
     //boolean existsByName(String name);
 
-    //Optional<Publisher> findByName(String name);
+    //Optional<Category> findByName(String name);
 }
