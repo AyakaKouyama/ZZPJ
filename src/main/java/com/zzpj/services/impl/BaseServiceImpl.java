@@ -5,13 +5,12 @@ import com.zzpj.services.interfaces.BaseService;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public class BaseServiceImpl<TRepository extends CrudRepository<TModel, Long>, TModel> implements BaseService<TRepository, TModel> {
 
     protected TRepository repository;
 
-    public BaseServiceImpl(TRepository repository){
+    public BaseServiceImpl(TRepository repository) {
         this.repository = repository;
     }
 
@@ -32,7 +31,7 @@ public class BaseServiceImpl<TRepository extends CrudRepository<TModel, Long>, T
 
     @Override
     public void deleteById(Long id) {
-        if(repository.existsById(id)){
+        if (repository.existsById(id)) {
             throw entityNotFoundException(id);
         }
         repository.deleteById(id);
@@ -40,11 +39,10 @@ public class BaseServiceImpl<TRepository extends CrudRepository<TModel, Long>, T
 
     @Override
     public TModel findById(Long id) {
-        return repository.findById(id).orElseThrow( () -> entityNotFoundException(id));
+        return repository.findById(id).orElseThrow(() -> entityNotFoundException(id));
     }
 
-    private EntityNotFoundException entityNotFoundException(Long id){
-        return new EntityNotFoundException("Entity with id " + id  + " not found.");
+    private EntityNotFoundException entityNotFoundException(Long id) {
+        return new EntityNotFoundException("Entity with id " + id + " not found.");
     }
-
 }

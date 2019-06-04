@@ -6,20 +6,19 @@ import com.zzpj.repositories.OrderedBookRepository;
 import com.zzpj.services.interfaces.OrderedBookService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class OrderedBookServiceImpl extends BaseServiceImpl<OrderedBookRepository, OrderedBook> implements OrderedBookService {
+public class OrderedBookServiceImpl extends BaseServiceImpl<OrderedBookRepository, OrderedBook> implements
+        OrderedBookService {
 
 
     public OrderedBookServiceImpl(OrderedBookRepository orderedBookRepository) {
         super(orderedBookRepository);
     }
 
-//    @Override
-//    public List<OrderedBook> getByBookId(int bookId) {
-//        return  repository.getByBookId(bookId);
-//    }
+    //    @Override
+    //    public List<OrderedBook> getByBookId(int bookId) {
+    //        return  repository.getByBookId(bookId);
+    //    }
 
 
     @Override
@@ -35,7 +34,6 @@ public class OrderedBookServiceImpl extends BaseServiceImpl<OrderedBookRepositor
         opinion.setVersion(bookFromRepository.getVersion());
         return repository.save(opinion);
     }
-
 
 
     private EntityNotFoundException entityNotFoundException(Long id) {

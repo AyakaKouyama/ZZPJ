@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -18,5 +19,5 @@ public class ShippingMethodDto {
     public String name;
 
     @NotEmpty(message = "price cannot be null!")
-    public Double price;
+    public BigDecimal price;
 }

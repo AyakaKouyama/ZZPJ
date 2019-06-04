@@ -7,11 +7,14 @@ import com.zzpj.entities.Purchase;
 import com.zzpj.services.interfaces.BookService;
 import com.zzpj.services.interfaces.OrderedBookService;
 import com.zzpj.services.interfaces.PurchaseService;
-import org.hibernate.criterion.Order;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -31,7 +34,7 @@ public class OrderedBookController {
             BookService bookService,
             OrderedBookService orderedBookService,
             ModelMapper modelMapper
-    ){
+    ) {
         this.bookService = bookService;
         this.purchaseService = purchaseService;
         this.orderedBookService = orderedBookService;
@@ -60,8 +63,8 @@ public class OrderedBookController {
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity addBook(@Valid @RequestBody OrderedBookDto orderedBookDto) {
         OrderedBook orderedBook = modelMapper.map(orderedBookDto, OrderedBook.class);
-        Book book = bookService.findById(orderedBookDto.getBook().getId());
-        Purchase purchase = purchaseService.findById(orderedBookDto.getPurchase().getId());
+        Book book = bookService.findById(orderedBookDto.getBookId());
+        Purchase purchase = purchaseService.findById(orderedBookDto.getPurchaseId());
         orderedBook.setPurchase(purchase);
         orderedBook.setBook(book);
         orderedBookService.add(orderedBook);
@@ -71,12 +74,11 @@ public class OrderedBookController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     ResponseEntity updateBook(@PathVariable Long id, @RequestBody OrderedBookDto orderedBookDto) {
         OrderedBook orderedBook = modelMapper.map(orderedBookDto, OrderedBook.class);
-        Book book = bookService.findById(orderedBookDto.getBook().getId());
-        Purchase purchase = purchaseService.findById(orderedBookDto.getPurchase().getId());
+        Book book = bookService.findById(orderedBookDto.getBookId());
+        Purchase purchase = purchaseService.findById(orderedBookDto.getPurchaseId());
         orderedBook.setPurchase(purchase);
         orderedBook.setBook(book);
         orderedBookService.update(orderedBook);
         return ResponseEntity.ok(orderedBook);
     }
-
 }

@@ -12,7 +12,6 @@ import javax.validation.constraints.NotEmpty;
 
 public class PublisherDto {
 
-
     @NotEmpty(message = "name cannot be empty!")
     private String name;
 

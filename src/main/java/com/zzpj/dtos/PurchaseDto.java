@@ -15,14 +15,14 @@ public class PurchaseDto {
     private Long id;
 
     @NotNull(message = "user cannot be null!")
-    private UserDto user;
+    private Long userId;
 
     private Long version;
 
-    private PaymentStatusDto paymentStatus;
+    private Long paymentStatusId;
 
     @NotNull(message = "price cannot be null!")
     private double price;
 
-    private ShippingMethodDto shippingMethod;
+    private Long shippingMethodId;
 }

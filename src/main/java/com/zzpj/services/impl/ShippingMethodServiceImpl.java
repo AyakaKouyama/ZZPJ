@@ -1,17 +1,16 @@
 package com.zzpj.services.impl;
 
-import com.zzpj.entities.Category;
 import com.zzpj.entities.ShippingMethod;
 import com.zzpj.exceptions.EntityAlreadyExistsException;
 import com.zzpj.exceptions.EntityNotFoundException;
-import com.zzpj.repositories.CategoryRepository;
 import com.zzpj.repositories.ShippingMethodRepository;
 import com.zzpj.services.interfaces.ShippingMethodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ShippingMethodServiceImpl extends BaseServiceImpl<ShippingMethodRepository, ShippingMethod> implements ShippingMethodService {
+public class ShippingMethodServiceImpl extends BaseServiceImpl<ShippingMethodRepository, ShippingMethod> implements
+        ShippingMethodService {
 
     private final ShippingMethodRepository shippingMethodRepository;
 

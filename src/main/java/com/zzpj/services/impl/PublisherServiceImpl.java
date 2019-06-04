@@ -12,34 +12,34 @@ import org.springframework.stereotype.Service;
 @Service
 public class PublisherServiceImpl extends BaseServiceImpl<PublisherRepository, Publisher> implements PublisherService {
 
-private final PublisherRepository publisherRepository;
+    private final PublisherRepository publisherRepository;
 
-        @Autowired
-        public PublisherServiceImpl(PublisherRepository publisherRepository) {
-            super(publisherRepository);
-            this.publisherRepository = publisherRepository;
-        }
+    @Autowired
+    public PublisherServiceImpl(PublisherRepository publisherRepository) {
+        super(publisherRepository);
+        this.publisherRepository = publisherRepository;
+    }
 
-        @Override
-        public Publisher add(Publisher category) {
-            if (publisherRepository.existsByName(category.getName())) {
+    @Override
+    public Publisher add(Publisher category) {
+        if (publisherRepository.existsByName(category.getName())) {
             throw entityAlreadyExistsException(category.getName());
         }
 
         category.setVersion(0L);
         return publisherRepository.save(category);
-        }
+    }
 
     @Override
     public Publisher findByName(String name) {
         return publisherRepository.findByName(name).orElseThrow(() -> entityNotFoundException(name));
-        }
+    }
 
-private EntityNotFoundException entityNotFoundException(String name) {
+    private EntityNotFoundException entityNotFoundException(String name) {
         return new EntityNotFoundException("Publisher with name " + name + " not found.");
-        }
+    }
 
-private EntityAlreadyExistsException entityAlreadyExistsException(String name) {
+    private EntityAlreadyExistsException entityAlreadyExistsException(String name) {
         return new EntityAlreadyExistsException("Publisher with name " + name + " already exists.");
-        }
-        }
+    }
+}

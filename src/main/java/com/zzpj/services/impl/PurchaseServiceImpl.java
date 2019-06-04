@@ -14,27 +14,23 @@ public class PurchaseServiceImpl extends BaseServiceImpl<PurchaseRepository, Pur
     private final PurchaseRepository purchaseRepository;
 
     @Autowired
-    public PurchaseServiceImpl(PurchaseRepository purchaseRepository)
-    {
+    public PurchaseServiceImpl(PurchaseRepository purchaseRepository) {
         super(purchaseRepository);
         this.purchaseRepository = purchaseRepository;
     }
 
     @Override
-    public Purchase add(Purchase purchase)
-    {
+    public Purchase add(Purchase purchase) {
         purchase.setVersion(0L);
         return this.purchaseRepository.save(purchase);
     }
 
     @Override
-    public Purchase findById(Long id)
-    {
+    public Purchase findById(Long id) {
         return purchaseRepository.findById(id).orElseThrow(() -> entityNotFoundException(id));
     }
 
-    public Purchase update(Purchase purchase)
-    {
+    public Purchase update(Purchase purchase) {
         Purchase purchaseFromRepo = purchaseRepository.findById(purchase.getId())
                 .orElseThrow(() -> entityNotFoundException(purchase.getId()));
         purchase.setVersion(purchaseFromRepo.getVersion());
@@ -42,10 +38,8 @@ public class PurchaseServiceImpl extends BaseServiceImpl<PurchaseRepository, Pur
     }
 
 
-
     private EntityNotFoundException entityNotFoundException(Long id) {
         return new EntityNotFoundException("Purchase with id " + id + " not found.");
     }
-
 }
 

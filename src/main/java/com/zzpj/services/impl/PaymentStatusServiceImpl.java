@@ -10,7 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PaymentStatusServiceImpl extends BaseServiceImpl<PaymentStatusRepository, PaymentStatus> implements PaymentStatusService {
+public class PaymentStatusServiceImpl extends BaseServiceImpl<PaymentStatusRepository, PaymentStatus> implements
+        PaymentStatusService {
 
     private final PaymentStatusRepository paymentStatusRepository;
 

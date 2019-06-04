@@ -1,17 +1,18 @@
 package com.zzpj.controllers;
 
 
-import com.zzpj.dtos.CategoryDto;
 import com.zzpj.dtos.ShippingMethodDto;
-import com.zzpj.entities.Category;
 import com.zzpj.entities.ShippingMethod;
-import com.zzpj.services.interfaces.CategoryService;
 import com.zzpj.services.interfaces.ShippingMethodService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;

@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
-@JsonPropertyOrder({"book", "user", "rate"})
+@JsonPropertyOrder({"bookId", "userId", "rate"})
 public class OpinionDto {
 
     private int rate;
 
-    private BookDto book;
+    private Long bookId;
 
-    private UserDto user;
+    private Long userId;
 }

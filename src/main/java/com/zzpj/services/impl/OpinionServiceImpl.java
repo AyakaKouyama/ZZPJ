@@ -7,19 +7,17 @@ import com.zzpj.services.interfaces.OpinionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class OpinionServiceImpl extends BaseServiceImpl<OpinionRepository, Opinion> implements OpinionService {
 
     @Autowired
-    public OpinionServiceImpl(OpinionRepository opinionRepository){
+    public OpinionServiceImpl(OpinionRepository opinionRepository) {
         super(opinionRepository);
     }
-//    @Override
-//    public List<Opinion> getByBookId(int bookId) {
-//        return  repository.getByBookId(bookId);
-//    }
+    //    @Override
+    //    public List<Opinion> getByBookId(int bookId) {
+    //        return  repository.getByBookId(bookId);
+    //    }
 
 
     @Override

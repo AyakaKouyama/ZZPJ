@@ -1,6 +1,7 @@
 package com.zzpj.controllers;
 
 
+import com.zzpj.dtos.GetPurchaseDto;
 import com.zzpj.dtos.PurchaseDto;
 import com.zzpj.entities.PaymentStatus;
 import com.zzpj.entities.Purchase;
@@ -12,7 +13,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -29,8 +34,7 @@ public class PurchaseController {
 
     @Autowired
     public PurchaseController(PurchaseService purchaseService, PaymentStatusService paymentStatusService,
-                              ShippingMethodService shippingMethodService, ModelMapper modelMapper)
-    {
+            ShippingMethodService shippingMethodService, ModelMapper modelMapper) {
         this.purchaseService = purchaseService;
         this.paymentStatusService = paymentStatusService;
         this.shippingMethodService = shippingMethodService;
@@ -38,11 +42,11 @@ public class PurchaseController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    ResponseEntity<List<PurchaseDto>> getAllPurchases() {
-        List<PurchaseDto> purchaseDtoList = purchaseService.findAll()
+    ResponseEntity<List<GetPurchaseDto>> getAllPurchases() {
+        List<GetPurchaseDto> purchaseDtoList = purchaseService.findAll()
                 .stream()
                 .map(purchase ->
-                        modelMapper.map(purchase, PurchaseDto.class)
+                        modelMapper.map(purchase, GetPurchaseDto.class)
                 )
                 .collect(
                         Collectors.toList());
@@ -60,13 +64,11 @@ public class PurchaseController {
     ResponseEntity addPurchase(@Valid @RequestBody PurchaseDto purchaseDto) {
 
         Purchase purchase = modelMapper.map(purchaseDto, Purchase.class);
-
-        ShippingMethod shippingMethod = shippingMethodService.findById(purchaseDto.getShippingMethod().getId());
-        PaymentStatus paymentStatus = paymentStatusService.findById(purchaseDto.getPaymentStatus().getId());
+        ShippingMethod shippingMethod = shippingMethodService.findById(purchaseDto.getShippingMethodId());
+        PaymentStatus paymentStatus = paymentStatusService.findById(purchaseDto.getPaymentStatusId());
 
         purchase.setShippingMethod(shippingMethod);
         purchase.setPaymentStatus(paymentStatus);
-
         purchaseService.add(purchase);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -75,16 +77,14 @@ public class PurchaseController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     ResponseEntity updatePurchase(@PathVariable Long id, @RequestBody PurchaseDto purchaseDto) {
         Purchase purchase = modelMapper.map(purchaseDto, Purchase.class);
-
-        ShippingMethod shippingMethod = shippingMethodService.findById(purchaseDto.getShippingMethod().getId());
-        PaymentStatus paymentStatus = paymentStatusService.findById(purchaseDto.getPaymentStatus().getId());
+        ShippingMethod shippingMethod = shippingMethodService.findById(purchaseDto.getShippingMethodId());
+        PaymentStatus paymentStatus = paymentStatusService.findById(purchaseDto.getPaymentStatusId());
 
         purchase.setShippingMethod(shippingMethod);
         purchase.setPaymentStatus(paymentStatus);
-
         purchase.setId(id);
         purchaseService.update(purchase);
-        
+
         return ResponseEntity.ok(purchase);
     }
 }

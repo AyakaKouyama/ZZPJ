@@ -4,10 +4,8 @@ import com.zzpj.entities.Opinion;
 import com.zzpj.repositories.OpinionRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public interface OpinionService extends BaseService<OpinionRepository, Opinion>{
+public interface OpinionService extends BaseService<OpinionRepository, Opinion> {
 
     //List<Opinion> getByBookId(int bookId);
 
