@@ -55,19 +55,21 @@ public class OpinionController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    ResponseEntity<OpinionDto> getOpinionById(@PathVariable Long id) {
+    ResponseEntity<GetOpinionDto> getOpinionById(@PathVariable Long id) {
         Opinion opinion = opinionService.findById(id);
-        OpinionDto result = modelMapper.map(opinion, OpinionDto.class);
+        GetOpinionDto result = modelMapper.map(opinion, GetOpinionDto.class);
         return ResponseEntity.ok(result);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity addOpinion(@Valid @RequestBody OpinionDto opinionDto) {
-        Opinion opinion = modelMapper.map(opinionDto, Opinion.class);
+        Opinion opinion = new Opinion();
         Book book = bookService.findById(opinionDto.getBookId());
         User user = userService.findById(opinionDto.getUserId());
         opinion.setBook(book);
         opinion.setUser(user);
+        opinion.setDescription(opinionDto.getDescription());
+        opinion.setRate(opinionDto.getRate());
         opinionService.add(opinion);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

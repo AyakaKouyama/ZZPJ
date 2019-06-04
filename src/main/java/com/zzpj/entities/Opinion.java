@@ -33,6 +33,10 @@ public class Opinion {
     @Column(name = "rate")
     private int rate;
 
+
+    @Column(name = "description")
+    private String description;
+
     @ManyToOne
     @JoinColumn(name = "book_id",
             foreignKey = @ForeignKey(name = "FK__book_id"))

@@ -1,6 +1,5 @@
 package com.zzpj.dtos;
 
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,9 +7,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class GetOrder {
+public class GetOrderedBookDto {
 
-    private BookDto book;
+    Long id;
 
-    private GetPurchaseDto purchase;
+    BookDto book;
+
+    PurchaseDto purchase;
 }

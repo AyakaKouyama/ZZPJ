@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
 @Data
@@ -19,13 +20,11 @@ public class UserDto {
     @NotEmpty(message = "Email cannot be empty!")
     public String email;
 
-    @NotEmpty(message = "Password Hash cannot be empty!")
     public String passwordHash;
 
-    @NotEmpty(message = "Role cannot be null!")
-    public RoleDto role;
+    @NotNull(message = "Role cannot be null!")
+    public Long roleId;
 
-    @NotEmpty(message = "User details cannot be null!")
     public UserDetailsDto userDetails;
 
     public Long version;

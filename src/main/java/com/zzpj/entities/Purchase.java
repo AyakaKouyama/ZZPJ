@@ -4,6 +4,7 @@ package com.zzpj.entities;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -26,7 +27,7 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id",
             foreignKey = @ForeignKey(name = "FK__purchase_user"))
     private User user;
@@ -34,7 +35,7 @@ public class Purchase {
     @Version
     private Long version;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_status_id",
             foreignKey = @ForeignKey(name = "FK__purchase_payment_status"))
     private PaymentStatus paymentStatus;
@@ -42,7 +43,7 @@ public class Purchase {
     @Column(name = "total_price", nullable = false)
     private BigDecimal price;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "shipping_method_id",
             foreignKey = @ForeignKey(name = "FK__purchase_shipping_method"))
     private ShippingMethod shippingMethod;

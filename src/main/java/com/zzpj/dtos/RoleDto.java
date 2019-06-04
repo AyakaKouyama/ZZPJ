@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 
 @NoArgsConstructor
 @Data
-@JsonPropertyOrder({"id", "name", "version"})
+@JsonPropertyOrder({"name", "version"})
 public class RoleDto {
 
     public Long id;

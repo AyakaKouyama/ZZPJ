@@ -62,8 +62,7 @@ public class PurchaseController {
 
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity addPurchase(@Valid @RequestBody PurchaseDto purchaseDto) {
-
-        Purchase purchase = modelMapper.map(purchaseDto, Purchase.class);
+        Purchase purchase = new Purchase();
         ShippingMethod shippingMethod = shippingMethodService.findById(purchaseDto.getShippingMethodId());
         PaymentStatus paymentStatus = paymentStatusService.findById(purchaseDto.getPaymentStatusId());
 
