@@ -1,4 +1,5 @@
 package com.zzpj.entities;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,14 +16,13 @@ import javax.persistence.Version;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "publisher")
+@Table(name = "category")
 //@NamedQueries({
-//        @NamedQuery(name = "Publisher.existsByName",
-//                query = "SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Publisher p WHERE p.name = :name"),
-//        @NamedQuery(name = "Publisher.findByName", query = "SELECT p FROM Publisher p WHERE p.name = :name")
+//        @NamedQuery(name = "Category.existsByName",
+//                query = "SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Category c WHERE c.name = :name"),
+//        @NamedQuery(name = "Category.findByName", query = "SELECT c FROM Category c WHERE c.name = :name")
 //})
-
-public class Publisher extends BaseEntity{
+public class Category extends BaseEntity{
 
     @Column(name = "name", unique = true)
     private String name;
