@@ -2,21 +2,19 @@ package com.zzpj.services.interfaces;
 
 import java.util.List;
 
-/**
- * base service define base CRUD operation which won't need to be implemented by each service
- *
- * @param <TRepository>
- * @param <TModel>
- */
-public interface BaseService<TRepository, TModel> {
+public interface BaseService<TModel, UDto> {
 
-    List<TModel> findAll();
+    List<UDto> findAll();
 
-    TModel add(TModel model);
+    UDto add(UDto dto);
 
-    TModel update(TModel model);
+    UDto update(Long id, UDto dto);
 
     void deleteById(Long id);
 
-    TModel findById(Long id);
+    UDto findById(Long id);
+
+    TModel ConvertToEntity(UDto dto);
+
+    UDto ConvertToDto(TModel entity);
 }

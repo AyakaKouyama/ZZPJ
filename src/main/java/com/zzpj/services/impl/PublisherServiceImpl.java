@@ -1,45 +1,29 @@
 package com.zzpj.services.impl;
 
 
+import com.zzpj.dtos.PublisherDto;
 import com.zzpj.entities.Publisher;
-import com.zzpj.exceptions.EntityAlreadyExistsException;
-import com.zzpj.exceptions.EntityNotFoundException;
 import com.zzpj.repositories.PublisherRepository;
 import com.zzpj.services.interfaces.PublisherService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PublisherServiceImpl extends BaseServiceImpl<PublisherRepository, Publisher> implements PublisherService {
+public class PublisherServiceImpl extends BaseServiceImpl<PublisherRepository,Publisher, PublisherDto> implements PublisherService {
 
-private final PublisherRepository publisherRepository;
 
-        @Autowired
-        public PublisherServiceImpl(PublisherRepository publisherRepository) {
-            super(publisherRepository);
-            this.publisherRepository = publisherRepository;
-        }
-
-        @Override
-        public Publisher add(Publisher category) {
-            if (publisherRepository.existsByName(category.getName())) {
-            throw entityAlreadyExistsException(category.getName());
-        }
-
-        category.setVersion(0L);
-        return publisherRepository.save(category);
-        }
+    public PublisherServiceImpl(PublisherRepository repository, ModelMapper modelMapper) {
+        super(repository, modelMapper);
+    }
 
     @Override
-    public Publisher findByName(String name) {
-        return publisherRepository.findByName(name).orElseThrow(() -> entityNotFoundException(name));
-        }
+    public PublisherDto ConvertToDto(Publisher entity) {
+        return modelMapper.map(entity, PublisherDto.class);
+    }
 
-private EntityNotFoundException entityNotFoundException(String name) {
-        return new EntityNotFoundException("Publisher with name " + name + " not found.");
-        }
-
-private EntityAlreadyExistsException entityAlreadyExistsException(String name) {
-        return new EntityAlreadyExistsException("Publisher with name " + name + " already exists.");
-        }
-        }
+    @Override
+    public Publisher ConvertToEntity(PublisherDto dto) {
+        return modelMapper.map(dto, Publisher.class);
+    }
+}
