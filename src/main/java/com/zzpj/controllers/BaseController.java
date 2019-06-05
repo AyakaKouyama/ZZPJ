@@ -1,7 +1,5 @@
 package com.zzpj.controllers;
 
-
-import com.zzpj.services.impl.BaseServiceImpl;
 import com.zzpj.services.interfaces.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

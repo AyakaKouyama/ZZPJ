@@ -33,13 +33,10 @@ public class BookServiceImpl extends BaseServiceImpl<BookRepository, Book, BookD
     @Override
     public Book ConvertToEntity(BookDto dto) {
         Book book = modelMapper.map(dto, Book.class);
-        Category category = categoryRepository.findById(dto.getCategory().getId()).orElseThrow(() -> entityNotFoundException(dto.getCategory().getId()));
+        Category category = categoryRepository.findById(dto.getCategory().getId())
+                .orElseThrow(() -> super.entityNotFoundException(dto.getCategory().getId(), "Book"));
         book.setCategory(category);
         return book;
-    }
-
-    private EntityNotFoundException entityNotFoundException(Long id){
-        return new EntityNotFoundException("Book with id " + id  + " not found.");
     }
 
 }

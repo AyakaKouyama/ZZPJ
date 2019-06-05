@@ -25,8 +25,8 @@ public class BaseServiceImpl
         this.modelMapper = modelMapper;
     }
 
-    private EntityNotFoundException entityNotFoundException(Long id){
-        return new EntityNotFoundException("Entity with id " + id  + " not found.");
+    protected EntityNotFoundException entityNotFoundException(Long id, String name){
+        return new EntityNotFoundException(name + " with id " + id  + " not found.");
     }
 
     @Override
@@ -50,7 +50,7 @@ public class BaseServiceImpl
     public UDto update(Long id, UDto dto) {
         TModel modelFromReposiotry = repository
                         .findById(id)
-                        .orElseThrow(() -> entityNotFoundException(id));
+                        .orElseThrow(() -> entityNotFoundException(id, "Entity"));
         TModel editedModel = ConvertToEntity(dto);
         editedModel.setVersion(modelFromReposiotry.getVersion());
         editedModel.setId(id);
@@ -61,7 +61,7 @@ public class BaseServiceImpl
     @Override
     public void deleteById(Long id) {
         if(!repository.existsById(id)){
-            throw entityNotFoundException(id);
+            throw entityNotFoundException(id, "Entity");
         }
         repository.deleteById(id);
     }
@@ -70,7 +70,7 @@ public class BaseServiceImpl
     public UDto findById(Long id) {
         TModel model = repository
                 .findById(id)
-                .orElseThrow(() -> entityNotFoundException(id));
+                .orElseThrow(() -> entityNotFoundException(id, "Entity"));
         return ConvertToDto(model);
     }
 
