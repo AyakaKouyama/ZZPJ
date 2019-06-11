@@ -10,18 +10,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "purchase")
-public class Purchase {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Purchase extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "user_id",
             foreignKey = @ForeignKey(name = "FK__purchase_user"))
     private User user;
-
-    @Version
-    private Long version;
 
     @ManyToOne
     @JoinColumn(name = "payment_status_id",

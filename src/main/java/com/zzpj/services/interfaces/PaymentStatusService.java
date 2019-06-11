@@ -1,14 +1,11 @@
 package com.zzpj.services.interfaces;
 
 
+import com.zzpj.dtos.PaymentStatusDto;
 import com.zzpj.entities.PaymentStatus;
-import com.zzpj.repositories.PaymentStatusRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface PaymentStatusService extends BaseService<PaymentStatusRepository, PaymentStatus> {
+public interface PaymentStatusService extends BaseService<PaymentStatus, PaymentStatusDto> {
 
-    PaymentStatus add(PaymentStatus category);
-
-    PaymentStatus findByName(String name);
 }

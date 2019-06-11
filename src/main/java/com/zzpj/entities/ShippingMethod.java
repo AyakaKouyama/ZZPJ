@@ -16,11 +16,7 @@ import javax.persistence.*;
 })
 
 
-public class ShippingMethod {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class ShippingMethod extends BaseEntity{
 
     @Column(name = "name", unique = true)
     private String name;
@@ -28,6 +24,4 @@ public class ShippingMethod {
     @Column(name = "price", nullable = false)
     private double price;
 
-    @Version
-    private Long version;
 }

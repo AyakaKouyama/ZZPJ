@@ -15,14 +15,9 @@ import javax.persistence.*;
         @NamedQuery(name = "Role.findByName", query = "SELECT r FROM Role r WHERE r.name = :name")
 })
 
-public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Role extends BaseEntity{
 
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    @Version
-    private Long version;
 }

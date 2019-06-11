@@ -21,13 +21,9 @@ import java.math.BigInteger;
 @NoArgsConstructor
 @Entity
 @Table(name = "book")
-@NamedQueries(@NamedQuery(name = "Book.existsByName",
-        query = "SELECT CASE WHEN COUNT(b) > 0 THEN true ELSE false END FROM Book b WHERE b.title = :title"))
-public class Book {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//@NamedQueries(@NamedQuery(name = "Book.existsByName",
+//        query = "SELECT CASE WHEN COUNT(b) > 0 THEN true ELSE false END FROM Book b WHERE b.title = :title"))
+public class Book extends BaseEntity{
 
     @Column(name = "title", nullable = false, unique = true)
     private String title;
@@ -52,6 +48,4 @@ public class Book {
             foreignKey = @ForeignKey(name = "FK__book_category"))
     private Category category;
 
-    @Version
-    private Long version;
 }

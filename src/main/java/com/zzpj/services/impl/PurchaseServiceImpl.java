@@ -1,51 +1,55 @@
 package com.zzpj.services.impl;
 
 
+import com.zzpj.dtos.PurchaseDto;
+import com.zzpj.entities.PaymentStatus;
 import com.zzpj.entities.Purchase;
-import com.zzpj.exceptions.EntityNotFoundException;
+import com.zzpj.entities.ShippingMethod;
+import com.zzpj.repositories.PaymentStatusRepository;
 import com.zzpj.repositories.PurchaseRepository;
+import com.zzpj.repositories.ShippingMethodRepository;
 import com.zzpj.services.interfaces.PurchaseService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PurchaseServiceImpl extends BaseServiceImpl<PurchaseRepository, Purchase> implements PurchaseService {
+public class PurchaseServiceImpl extends BaseServiceImpl<PurchaseRepository, Purchase, PurchaseDto> implements PurchaseService {
 
-    private final PurchaseRepository purchaseRepository;
+    private ShippingMethodRepository shippingMethodRepository;
+    private PaymentStatusRepository paymentStatusRepository;
 
     @Autowired
-    public PurchaseServiceImpl(PurchaseRepository purchaseRepository)
+    public PurchaseServiceImpl(
+            PurchaseRepository repository,
+            ShippingMethodRepository shippingMethodRepository,
+            PaymentStatusRepository paymentStatusRepository,
+            ModelMapper modelMapper)
     {
-        super(purchaseRepository);
-        this.purchaseRepository = purchaseRepository;
+        super(repository, modelMapper);
+        this.shippingMethodRepository = shippingMethodRepository;
+        this.paymentStatusRepository = paymentStatusRepository;
     }
 
     @Override
-    public Purchase add(Purchase purchase)
-    {
-        purchase.setVersion(0L);
-        return this.purchaseRepository.save(purchase);
+    public PurchaseDto ConvertToDto(Purchase entity) {
+        PurchaseDto bookDto = modelMapper.map(entity, PurchaseDto.class);
+        return bookDto;
     }
 
     @Override
-    public Purchase findById(Long id)
-    {
-        return purchaseRepository.findById(id).orElseThrow(() -> entityNotFoundException(id));
+    public Purchase ConvertToEntity(PurchaseDto dto) {
+        Purchase purchase = modelMapper.map(dto, Purchase.class);
+
+        ShippingMethod shippingMethod = shippingMethodRepository.findById(dto.getShippingMethod().getId())
+                .orElseThrow(() -> super.entityNotFoundException(dto.getShippingMethod().getId(), "ShippingMethod"));
+        PaymentStatus paymentStatus = paymentStatusRepository.findById(dto.getPaymentStatus().getId())
+                .orElseThrow(() -> super.entityNotFoundException(dto.getPaymentStatus().getId(), "PaymentStatus"));
+
+        purchase.setShippingMethod(shippingMethod);
+        purchase.setPaymentStatus(paymentStatus);
+
+        return purchase;
     }
-
-    public Purchase update(Purchase purchase)
-    {
-        Purchase purchaseFromRepo = purchaseRepository.findById(purchase.getId())
-                .orElseThrow(() -> entityNotFoundException(purchase.getId()));
-        purchase.setVersion(purchaseFromRepo.getVersion());
-        return purchaseRepository.save(purchase);
-    }
-
-
-
-    private EntityNotFoundException entityNotFoundException(Long id) {
-        return new EntityNotFoundException("Purchase with id " + id + " not found.");
-    }
-
 }
 

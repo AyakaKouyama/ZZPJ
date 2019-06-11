@@ -9,16 +9,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "userDetails")
-@NamedQueries({
-        @NamedQuery(name = "UserDetails.existsByName",
-                query = "SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM UserDetails ud WHERE ud.id = :id"),
-        @NamedQuery(name = "UserDetails.findByName", query = "SELECT ud FROM UserDetails ud WHERE ud.id = :id")
-})
+//@NamedQueries({
+//        @NamedQuery(name = "UserDetails.existsByName",
+//                query = "SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM UserDetails ud WHERE ud.id = :id"),
+//        @NamedQuery(name = "UserDetails.findByName", query = "SELECT ud FROM UserDetails ud WHERE ud.id = :id")
+//})
 
-public class UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class UserDetails extends BaseEntity{
 
     @Column(name = "street", nullable = false)
     private String street;
@@ -43,8 +40,5 @@ public class UserDetails {
 
     @Column(name = "lastName", nullable = false)
     private String lastName;
-
-    @Version
-    private Long version;
 
 }

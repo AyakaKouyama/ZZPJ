@@ -3,6 +3,7 @@ package com.zzpj.controllers;
 import com.zzpj.dtos.BookDto;
 import com.zzpj.entities.Book;
 import com.zzpj.entities.Category;
+import com.zzpj.services.interfaces.BaseService;
 import com.zzpj.services.interfaces.BookService;
 import com.zzpj.services.interfaces.CategoryService;
 import org.modelmapper.ModelMapper;
@@ -21,54 +22,10 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/books")
-public class BookController {
-
-    private BookService bookService;
-    private CategoryService categoryService;
-    private ModelMapper modelMapper;
+public class BookController extends BaseController<Book, BookDto>{
 
     @Autowired
-    public BookController(BookService bookService, CategoryService categoryService, ModelMapper modelMapper) {
-        this.bookService = bookService;
-        this.modelMapper = modelMapper;
-        this.categoryService = categoryService;
-    }
-
-    @RequestMapping(method = RequestMethod.GET)
-    ResponseEntity<List<BookDto>> getAllBooks() {
-        List<BookDto> bookDtoList = bookService.findAll()
-                .stream()
-                .map(book ->
-                        modelMapper.map(book, BookDto.class)
-                )
-                .collect(
-                        Collectors.toList());
-        return ResponseEntity.ok(bookDtoList);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    ResponseEntity<BookDto> getBookById(@PathVariable Long id) {
-        Book book = bookService.findById(id);
-        BookDto result = modelMapper.map(book, BookDto.class);
-        return ResponseEntity.ok(result);
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity addBook(@Valid @RequestBody BookDto bookDto) {
-        Book book = modelMapper.map(bookDto, Book.class);
-        Category category = categoryService.findById(bookDto.getCategory().getId());
-        book.setCategory(category);
-        bookService.add(book);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    ResponseEntity updateBook(@PathVariable Long id, @RequestBody BookDto bookDto) {
-        Book book = modelMapper.map(bookDto, Book.class);
-        Category category = categoryService.findById(bookDto.getCategory().getId());
-        book.setId(id);
-        book.setCategory(category);
-        bookService.update(book);
-        return ResponseEntity.ok(book);
+    public BookController(BookService service) {
+        super(service);
     }
 }

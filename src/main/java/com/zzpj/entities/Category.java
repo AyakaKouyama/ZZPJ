@@ -17,20 +17,14 @@ import javax.persistence.Version;
 @NoArgsConstructor
 @Entity
 @Table(name = "category")
-@NamedQueries({
-        @NamedQuery(name = "Category.existsByName",
-                query = "SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Category c WHERE c.name = :name"),
-        @NamedQuery(name = "Category.findByName", query = "SELECT c FROM Category c WHERE c.name = :name")
-})
-public class Category {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//@NamedQueries({
+//        @NamedQuery(name = "Category.existsByName",
+//                query = "SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Category c WHERE c.name = :name"),
+//        @NamedQuery(name = "Category.findByName", query = "SELECT c FROM Category c WHERE c.name = :name")
+//})
+public class Category extends BaseEntity{
 
     @Column(name = "name", unique = true)
     private String name;
 
-    @Version
-    private Long version;
 }

@@ -1,44 +1,29 @@
 package com.zzpj.services.impl;
 
+import com.zzpj.dtos.CategoryDto;
 import com.zzpj.entities.Category;
-import com.zzpj.exceptions.EntityAlreadyExistsException;
-import com.zzpj.exceptions.EntityNotFoundException;
 import com.zzpj.repositories.CategoryRepository;
 import com.zzpj.services.interfaces.CategoryService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoryServiceImpl extends BaseServiceImpl<CategoryRepository, Category> implements CategoryService {
+public class CategoryServiceImpl extends BaseServiceImpl<CategoryRepository, Category, CategoryDto> implements CategoryService {
 
-    private final CategoryRepository categoryRepository;
 
     @Autowired
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
-        super(categoryRepository);
-        this.categoryRepository = categoryRepository;
+    public CategoryServiceImpl(CategoryRepository categoryRepository, ModelMapper modelMapper) {
+        super(categoryRepository, modelMapper);
     }
 
     @Override
-    public Category add(Category category) {
-        if (categoryRepository.existsByName(category.getName())) {
-            throw entityAlreadyExistsException(category.getName());
-        }
-
-        category.setVersion(0L);
-        return categoryRepository.save(category);
+    public CategoryDto ConvertToDto(Category entity) {
+        return modelMapper.map(entity, CategoryDto.class);
     }
 
     @Override
-    public Category findByName(String name) {
-        return categoryRepository.findByName(name).orElseThrow(() -> entityNotFoundException(name));
-    }
-
-    private EntityNotFoundException entityNotFoundException(String name) {
-        return new EntityNotFoundException("Category with name " + name + " not found.");
-    }
-
-    private EntityAlreadyExistsException entityAlreadyExistsException(String name) {
-        return new EntityAlreadyExistsException("Category with name " + name + " already exists.");
+    public Category ConvertToEntity(CategoryDto dto) {
+        return modelMapper.map(dto, Category.class);
     }
 }

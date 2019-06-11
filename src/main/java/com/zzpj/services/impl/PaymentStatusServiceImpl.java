@@ -1,45 +1,31 @@
 package com.zzpj.services.impl;
 
 
+import com.zzpj.dtos.PaymentStatusDto;
 import com.zzpj.entities.PaymentStatus;
-import com.zzpj.exceptions.EntityAlreadyExistsException;
-import com.zzpj.exceptions.EntityNotFoundException;
 import com.zzpj.repositories.PaymentStatusRepository;
 import com.zzpj.services.interfaces.PaymentStatusService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PaymentStatusServiceImpl extends BaseServiceImpl<PaymentStatusRepository, PaymentStatus> implements PaymentStatusService {
-
-    private final PaymentStatusRepository paymentStatusRepository;
+public class PaymentStatusServiceImpl extends BaseServiceImpl<PaymentStatusRepository, PaymentStatus, PaymentStatusDto> implements PaymentStatusService {
 
     @Autowired
-    public PaymentStatusServiceImpl(PaymentStatusRepository paymentStatusRepository) {
-        super(paymentStatusRepository);
-        this.paymentStatusRepository = paymentStatusRepository;
+    public PaymentStatusServiceImpl(PaymentStatusRepository repository, ModelMapper modelMapper) {
+        super(repository, modelMapper);
     }
 
     @Override
-    public PaymentStatus add(PaymentStatus paymentStatus) {
-        if (paymentStatusRepository.existsByName(paymentStatus.getName())) {
-            throw entityAlreadyExistsException(paymentStatus.getName());
-        }
-
-        paymentStatus.setVersion(0L);
-        return paymentStatusRepository.save(paymentStatus);
+    public PaymentStatusDto ConvertToDto(PaymentStatus entity) {
+        PaymentStatusDto paymentStatusDto = modelMapper.map(entity, PaymentStatusDto.class);
+        return paymentStatusDto;
     }
 
     @Override
-    public PaymentStatus findByName(String name) {
-        return paymentStatusRepository.findByName(name).orElseThrow(() -> entityNotFoundException(name));
-    }
-
-    private EntityNotFoundException entityNotFoundException(String name) {
-        return new EntityNotFoundException("Payment status with name " + name + " not found.");
-    }
-
-    private EntityAlreadyExistsException entityAlreadyExistsException(String name) {
-        return new EntityAlreadyExistsException("Payment status with name " + name + " already exists.");
+    public PaymentStatus ConvertToEntity(PaymentStatusDto dto) {
+        PaymentStatus paymentStatus = modelMapper.map(dto, PaymentStatus.class);
+        return paymentStatus;
     }
 }

@@ -1,44 +1,30 @@
 package com.zzpj.services.impl;
 
+import com.zzpj.dtos.RoleDto;
 import com.zzpj.entities.Role;
 import com.zzpj.exceptions.EntityAlreadyExistsException;
 import com.zzpj.exceptions.EntityNotFoundException;
 import com.zzpj.repositories.RoleRepository;
 import com.zzpj.services.interfaces.RoleService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RoleServiceImpl extends BaseServiceImpl<RoleRepository, Role> implements RoleService {
-
-    private final RoleRepository roleRepository;
+public class RoleServiceImpl extends BaseServiceImpl<RoleRepository,Role, RoleDto> implements RoleService {
 
     @Autowired
-    public RoleServiceImpl(RoleRepository roleRepository) {
-        super(roleRepository);
-        this.roleRepository = roleRepository;
+    public RoleServiceImpl(RoleRepository repository, ModelMapper modelMapper) {
+        super(repository, modelMapper);
     }
 
     @Override
-    public Role add(Role role) {
-        if (roleRepository.existsByName(role.getName())) {
-            throw entityAlreadyExistsException(role.getName());
-        }
-
-        role.setVersion(0L);
-        return roleRepository.save(role);
+    public RoleDto ConvertToDto(Role entity) {
+        return modelMapper.map(entity, RoleDto.class);
     }
 
     @Override
-    public Role findByName(String name) {
-        return roleRepository.findByName(name).orElseThrow(() -> entityNotFoundException(name));
-    }
-
-    private EntityNotFoundException entityNotFoundException(String name) {
-        return new EntityNotFoundException("Role with name " + name + " not found.");
-    }
-
-    private EntityAlreadyExistsException entityAlreadyExistsException(String name) {
-        return new EntityAlreadyExistsException("Role with name " + name + " already exists.");
+    public Role ConvertToEntity(RoleDto dto) {
+        return modelMapper.map(dto, Role.class);
     }
 }

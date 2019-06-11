@@ -1,38 +1,28 @@
 package com.zzpj.services.impl;
 
+import com.zzpj.dtos.UserDetailsDto;
 import com.zzpj.entities.UserDetails;
 import com.zzpj.exceptions.EntityNotFoundException;
 import com.zzpj.repositories.UserDetailsRepository;
 import com.zzpj.services.interfaces.UserDetailsService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserDetailsServiceImpl extends BaseServiceImpl<UserDetailsRepository, UserDetails> implements UserDetailsService {
+public class UserDetailsServiceImpl extends BaseServiceImpl<UserDetailsRepository, UserDetails, UserDetailsDto> implements UserDetailsService {
 
-    private final UserDetailsRepository userDetailsRepository;
-
-    @Autowired
-    public UserDetailsServiceImpl(UserDetailsRepository userDetailsRepository) {
-        super(userDetailsRepository);
-        this.userDetailsRepository = userDetailsRepository;
+    public UserDetailsServiceImpl(UserDetailsRepository repository, ModelMapper modelMapper) {
+        super(repository, modelMapper);
     }
 
     @Override
-    public UserDetails add(UserDetails userDetails) {
-        userDetails.setVersion(0L);
-        return userDetailsRepository.save(userDetails);
+    public UserDetailsDto ConvertToDto(UserDetails entity) {
+        return modelMapper.map(entity, UserDetailsDto.class);
     }
 
     @Override
-    public UserDetails update(UserDetails userDetails) {
-        UserDetails userDetailsFromRepository = userDetailsRepository.findById(userDetails.getId())
-                .orElseThrow(() -> entityNotFoundException(userDetails.getId()));
-        userDetails.setVersion(userDetailsFromRepository.getVersion());
-        return userDetailsRepository.save(userDetails);
-    }
-
-    private EntityNotFoundException entityNotFoundException(Long id) {
-        return new EntityNotFoundException("Details with id " + id + " not found");
+    public UserDetails ConvertToEntity(UserDetailsDto dto) {
+        return modelMapper.map(dto, UserDetails.class);
     }
 }

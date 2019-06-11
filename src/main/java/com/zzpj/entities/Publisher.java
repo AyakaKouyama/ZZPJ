@@ -16,20 +16,15 @@ import javax.persistence.Version;
 @NoArgsConstructor
 @Entity
 @Table(name = "publisher")
-@NamedQueries({
-        @NamedQuery(name = "Publisher.existsByName",
-                query = "SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Publisher p WHERE p.name = :name"),
-        @NamedQuery(name = "Publisher.findByName", query = "SELECT p FROM Publisher p WHERE p.name = :name")
-})
+//@NamedQueries({
+//        @NamedQuery(name = "Publisher.existsByName",
+//                query = "SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Publisher p WHERE p.name = :name"),
+//        @NamedQuery(name = "Publisher.findByName", query = "SELECT p FROM Publisher p WHERE p.name = :name")
+//})
 
-public class Publisher {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Publisher extends BaseEntity{
 
     @Column(name = "name", unique = true)
     private String name;
 
-    private Long version;
 }

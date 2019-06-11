@@ -13,5 +13,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     User save(User user);
 
-    boolean existsByName(String name);
+    //boolean existsByName(String name);
 }

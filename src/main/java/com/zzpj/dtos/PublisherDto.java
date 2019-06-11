@@ -8,13 +8,14 @@ import javax.validation.constraints.NotEmpty;
 
 @NoArgsConstructor
 @Data
-@JsonPropertyOrder({"name", "version" })
+@JsonPropertyOrder({"id", "name", "version" })
 
 public class PublisherDto {
 
+    public Long id;
 
     @NotEmpty(message = "name cannot be empty!")
-    private String name;
+    public String name;
 
-    private Long version;
+    public Long version;
 }

@@ -1,38 +1,50 @@
 package com.zzpj.services.impl;
 
+import com.zzpj.dtos.UserDto;
+import com.zzpj.entities.Role;
 import com.zzpj.entities.User;
+import com.zzpj.entities.UserDetails;
 import com.zzpj.exceptions.EntityNotFoundException;
+import com.zzpj.repositories.RoleRepository;
+import com.zzpj.repositories.UserDetailsRepository;
 import com.zzpj.repositories.UserRepository;
 import com.zzpj.services.interfaces.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl extends BaseServiceImpl<UserRepository, User> implements UserService {
+public class UserServiceImpl extends BaseServiceImpl<UserRepository, User, UserDto> implements UserService {
 
-    private final UserRepository userRepository;
+    private RoleRepository roleRepository;
+    private UserDetailsRepository userDetailsRepository;
 
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
-        super(userRepository);
-        this.userRepository = userRepository;
+    public UserServiceImpl(
+            UserRepository repository,
+            RoleRepository roleRepository,
+            UserDetailsRepository userDetailsRepository,
+            ModelMapper modelMapper)
+    {
+        super(repository, modelMapper);
+        this.roleRepository = roleRepository;
+        this.userDetailsRepository = userDetailsRepository;
     }
 
     @Override
-    public User add(User user) {
-        user.setVersion(0L);
-        return userRepository.save(user);
+    public UserDto ConvertToDto(User entity) {
+        return modelMapper.map(entity, UserDto.class);
     }
 
     @Override
-    public User update(User user) {
-        User userFromRepository = userRepository.findById(user.getId())
-                .orElseThrow(() -> entityNotFoundException(user.getId()));
-        user.setVersion(userFromRepository.getVersion());
-        return userRepository.save(user);
-    }
+    public User ConvertToEntity(UserDto dto) {
+        User user = modelMapper.map(dto, User.class);
+        Role role = roleRepository.findById(dto.getRole().getId())
+                .orElseThrow(() -> super.entityNotFoundException(dto.getRole().getId(), "Role"));
+        UserDetails userDetails = userDetailsRepository.findById(dto.getUserDetails().getId())
+                .orElseThrow(() -> super.entityNotFoundException(dto.getUserDetails().getId(), "UserDetails"));
+        user.setRole(role);
+        user.setUserDetails(userDetails);
 
-    private EntityNotFoundException entityNotFoundException(Long id) {
-        return new EntityNotFoundException("User with id " + id + " not found");
+        return user;
     }
 }

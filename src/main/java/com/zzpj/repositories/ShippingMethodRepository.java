@@ -15,8 +15,8 @@ public interface ShippingMethodRepository extends CrudRepository<ShippingMethod,
 
     Optional<ShippingMethod> findById(Long id);
 
-    boolean existsByName(String name);
+    //boolean existsByName(String name);
 
-    Optional<ShippingMethod> findByName(String name);
+    //Optional<ShippingMethod> findByName(String name);
 
 }

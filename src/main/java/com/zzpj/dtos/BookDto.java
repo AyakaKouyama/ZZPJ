@@ -13,6 +13,8 @@ import java.math.BigInteger;
 @JsonPropertyOrder({"title", "author", "price", "category", "isbn", "numberOfPages", "description", "version"})
 public class BookDto {
 
+    public Long id;
+
     @NotEmpty(message = "title cannot be empty!")
     public String title;
 

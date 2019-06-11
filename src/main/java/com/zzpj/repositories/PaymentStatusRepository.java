@@ -15,7 +15,7 @@ public interface PaymentStatusRepository extends CrudRepository<PaymentStatus, L
 
     Optional<PaymentStatus> findById(Long id);
 
-    boolean existsByName(String name);
+    //boolean existsByName(String name);
 
-    Optional<PaymentStatus> findByName(String name);
+    //Optional<PaymentStatus> findByName(String name);
 }

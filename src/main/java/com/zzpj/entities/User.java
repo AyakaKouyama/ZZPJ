@@ -9,16 +9,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "user")
-@NamedQueries({
-        @NamedQuery(name = "User.existsByName",
-                query = "SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM User u WHERE u.login = :login"),
-        @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.login = :login")
-})
+//@NamedQueries({
+//        @NamedQuery(name = "User.existsByName",
+//                query = "SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM User u WHERE u.login = :login"),
+//        @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.login = :login")
+//})
 
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class User extends BaseEntity{
 
     @Column(name = "login", nullable = false, unique = true)
     private String login;
@@ -28,9 +25,6 @@ public class User {
 
     @Column(name = "passwordHash", nullable = false)
     private String passwordHash;
-
-    @Version
-    private Long version;
 
     @ManyToOne
     @JoinColumn(name = "role_id",

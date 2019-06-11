@@ -1,38 +1,42 @@
 package com.zzpj.services.impl;
 
+import com.zzpj.dtos.BookDto;
+import com.zzpj.dtos.CategoryDto;
 import com.zzpj.entities.Book;
+import com.zzpj.entities.Category;
 import com.zzpj.exceptions.EntityNotFoundException;
 import com.zzpj.repositories.BookRepository;
+import com.zzpj.repositories.CategoryRepository;
 import com.zzpj.services.interfaces.BookService;
+import com.zzpj.services.interfaces.CategoryService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BookServiceImpl extends BaseServiceImpl<BookRepository, Book> implements BookService {
+public class BookServiceImpl extends BaseServiceImpl<BookRepository, Book, BookDto> implements BookService {
 
-    private final BookRepository bookRepository;
+    private CategoryRepository categoryRepository;
 
     @Autowired
-    public BookServiceImpl(BookRepository bookRepository) {
-        super(bookRepository);
-        this.bookRepository = bookRepository;
+    public BookServiceImpl(BookRepository bookRepository, CategoryRepository categoryRepository, ModelMapper modelMapper) {
+        super(bookRepository, modelMapper);
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
-    public Book add(Book book) {
-        book.setVersion(0L);
-        return bookRepository.save(book);
+    public BookDto ConvertToDto(Book entity) {
+        BookDto bookDto = modelMapper.map(entity, BookDto.class);
+        return bookDto;
     }
 
     @Override
-    public Book update(Book book) {
-        Book bookFromRepository = bookRepository.findById(book.getId())
-                .orElseThrow(() -> entityNotFoundException(book.getId()));
-        book.setVersion(bookFromRepository.getVersion());
-        return bookRepository.save(book);
+    public Book ConvertToEntity(BookDto dto) {
+        Book book = modelMapper.map(dto, Book.class);
+        Category category = categoryRepository.findById(dto.getCategory().getId())
+                .orElseThrow(() -> super.entityNotFoundException(dto.getCategory().getId(), "Book"));
+        book.setCategory(category);
+        return book;
     }
 
-    private EntityNotFoundException entityNotFoundException(Long id) {
-        return new EntityNotFoundException("Book with id " + id + " not found");
-    }
 }

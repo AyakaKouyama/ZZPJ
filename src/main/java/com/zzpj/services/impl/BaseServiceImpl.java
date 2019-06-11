@@ -1,50 +1,88 @@
 package com.zzpj.services.impl;
 
+import com.zzpj.entities.BaseEntity;
 import com.zzpj.exceptions.EntityNotFoundException;
 import com.zzpj.services.interfaces.BaseService;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
-public class BaseServiceImpl<TRepository extends CrudRepository<TModel, Long>, TModel> implements BaseService<TRepository, TModel> {
+public class BaseServiceImpl
+        <TRepository extends CrudRepository<TModel, Long>, TModel extends BaseEntity, UDto>
+        implements BaseService<TModel, UDto>
+{
 
     protected TRepository repository;
+    protected  ModelMapper modelMapper;
 
-    public BaseServiceImpl(TRepository repository){
+    public BaseServiceImpl(
+            TRepository repository,
+            ModelMapper modelMapper
+    ){
         this.repository = repository;
+        this.modelMapper = modelMapper;
+    }
+
+    protected EntityNotFoundException entityNotFoundException(Long id, String name){
+        return new EntityNotFoundException(name + " with id " + id  + " not found.");
     }
 
     @Override
-    public List<TModel> findAll() {
-        return (List<TModel>) repository.findAll();
+    public List<UDto> findAll() {
+        List<TModel> modelList = (List<TModel>) repository.findAll();
+        return modelList
+                .stream()
+                .map(entity ->
+                        ConvertToDto(entity))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public TModel add(TModel model) {
-        return repository.save(model);
+    public UDto add(UDto dto) {
+        TModel savedEntity = repository.save(ConvertToEntity(dto));
+        savedEntity.setVersion(0L);
+        return ConvertToDto(savedEntity);
     }
 
     @Override
-    public TModel update(TModel model) {
-        return repository.save(model);
+    public UDto update(Long id, UDto dto) {
+        TModel modelFromReposiotry = repository
+                        .findById(id)
+                        .orElseThrow(() -> entityNotFoundException(id, "Entity"));
+        TModel editedModel = ConvertToEntity(dto);
+        editedModel.setVersion(modelFromReposiotry.getVersion());
+        editedModel.setId(id);
+        TModel savedEntity = repository.save(editedModel);
+        return ConvertToDto(savedEntity);
     }
 
     @Override
     public void deleteById(Long id) {
-        if(repository.existsById(id)){
-            throw entityNotFoundException(id);
+        if(!repository.existsById(id)){
+            throw entityNotFoundException(id, "Entity");
         }
         repository.deleteById(id);
     }
 
     @Override
-    public TModel findById(Long id) {
-        return repository.findById(id).orElseThrow( () -> entityNotFoundException(id));
+    public UDto findById(Long id) {
+        TModel model = repository
+                .findById(id)
+                .orElseThrow(() -> entityNotFoundException(id, "Entity"));
+        return ConvertToDto(model);
     }
 
-    private EntityNotFoundException entityNotFoundException(Long id){
-        return new EntityNotFoundException("Entity with id " + id  + " not found.");
+    @Override
+    public TModel ConvertToEntity(UDto dto) {
+        throw new UnsupportedOperationException("Method must be implemented in super class");
     }
+
+    @Override
+    public UDto ConvertToDto(TModel entity) {
+        throw new UnsupportedOperationException("Method must be implemented in super class");
+    }
+
 
 }

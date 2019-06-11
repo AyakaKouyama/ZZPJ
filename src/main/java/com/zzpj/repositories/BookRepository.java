@@ -13,5 +13,5 @@ public interface BookRepository extends CrudRepository<Book, Long> {
 
     Book save(Book book);
 
-    boolean existsByName(String name);
+    //boolean existsByName(String name);
 }

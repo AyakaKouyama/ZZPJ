@@ -1,13 +1,10 @@
 package com.zzpj.services.interfaces;
 
+import com.zzpj.dtos.PublisherDto;
 import com.zzpj.entities.Publisher;
-import com.zzpj.repositories.PublisherRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface PublisherService extends BaseService<PublisherRepository, Publisher> {
+public interface PublisherService extends BaseService<Publisher, PublisherDto> {
 
-    Publisher add(Publisher category);
-
-    Publisher findByName(String name);
 }

@@ -15,8 +15,8 @@ public interface UserDetailsRepository extends CrudRepository<UserDetails, Long>
 
     Optional<UserDetails> findById(Long id);
 
-    boolean existsByName(String name);
+    //boolean existsByName(String name);
 
-    Optional<UserDetails> findByName(String name);
+    //Optional<UserDetails> findByName(String name);
 
 }
