@@ -12,7 +12,9 @@ public interface OpinionRepository extends CrudRepository<Opinion, Long> {
 
     Opinion save(Opinion opinion);
 
-    //List<Opinion> getByBookId(int bookId);
+    List<Opinion> findByBookId(Long bookId);
 
-    //List<Opinion> getByUserId(int userId);
+    List<Opinion> findByUserId(Long userId);
+
+    int getAverageRateForBook(Long bookId);
 }

@@ -13,7 +13,5 @@ public interface PublisherRepository extends CrudRepository<Publisher, Long> {
 
     Optional<Publisher> findById(Long id);
 
-    //boolean existsByName(String name);
-
-    //Optional<Publisher> findByName(String name);
+    Optional<Publisher> findByName(String name);
 }

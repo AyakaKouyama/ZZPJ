@@ -9,5 +9,10 @@ import java.util.List;
 
 @Service
 public interface OpinionService extends BaseService<Opinion, OpinionDto>{
-    
+
+    List<OpinionDto> findByUserId(Long userId);
+
+    List<OpinionDto> findByBookId(Long bookId);
+
+    int getAverageRateForBook(Long bookId);
 }
