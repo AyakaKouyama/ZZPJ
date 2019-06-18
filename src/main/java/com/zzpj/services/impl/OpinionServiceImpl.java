@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OpinionServiceImpl extends BaseServiceImpl<OpinionRepository, Opinion, OpinionDto> implements OpinionService {
@@ -45,5 +46,37 @@ public class OpinionServiceImpl extends BaseServiceImpl<OpinionRepository, Opini
         opinion.setUser(user);
 
         return opinion;
+    }
+
+    @Override
+    public List<OpinionDto> findByUserId(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> super.entityNotFoundException(userId, "User"));
+
+        List<Opinion> opinions = repository.findByUserId(userId);
+
+        return opinions.stream()
+                .map(opinion -> ConvertToDto(opinion))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<OpinionDto> findByBookId(Long bookId) {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> super.entityNotFoundException(bookId, "Book"));
+
+        List<Opinion> opinions = repository.findByBookId(bookId);
+
+        return opinions.stream()
+                .map(opinion -> ConvertToDto(opinion))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public int getAverageRateForBook(Long bookId) {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> super.entityNotFoundException(bookId, "Book"));
+
+        return repository.getAverageRateForBook(bookId);
     }
 }

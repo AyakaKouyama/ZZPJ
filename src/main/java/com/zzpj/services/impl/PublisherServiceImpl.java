@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PublisherServiceImpl extends BaseServiceImpl<PublisherRepository,Publisher, PublisherDto> implements PublisherService {
 
@@ -26,5 +28,14 @@ public class PublisherServiceImpl extends BaseServiceImpl<PublisherRepository,Pu
     @Override
     public Publisher ConvertToEntity(PublisherDto dto) {
         return modelMapper.map(dto, Publisher.class);
+    }
+
+    @Override
+    public PublisherDto findByName(String name) {
+        Publisher publisher = repository
+                                    .findByName(name)
+                                    .orElseThrow(() -> super.entityNotFoundException("Publisher", name));
+
+        return ConvertToDto(publisher);
     }
 }

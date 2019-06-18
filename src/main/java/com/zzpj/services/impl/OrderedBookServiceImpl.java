@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderedBookServiceImpl extends BaseServiceImpl<OrderedBookRepository, OrderedBook, OrderedBookDto> implements OrderedBookService {
@@ -50,5 +51,29 @@ public class OrderedBookServiceImpl extends BaseServiceImpl<OrderedBookRepositor
         orderedBook.setBook(book);
 
         return orderedBook;
+    }
+
+    @Override
+    public List<OrderedBookDto> findByBookId(Long bookId) {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> super.entityNotFoundException(bookId, "Book"));
+
+        List<OrderedBook> obs = repository.findByBookId(bookId);
+
+        return obs.stream()
+                .map(ob -> ConvertToDto(ob))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<OrderedBookDto> findByPurchaseId(Long purchaseId) {
+        Purchase user = purchaseRepository.findById(purchaseId)
+                .orElseThrow(() -> super.entityNotFoundException(purchaseId, "Purchase"));
+
+        List<OrderedBook> obs = repository.findByPurchaseId(purchaseId);
+
+        return obs.stream()
+                .map(ob -> ConvertToDto(ob))
+                .collect(Collectors.toList());
     }
 }

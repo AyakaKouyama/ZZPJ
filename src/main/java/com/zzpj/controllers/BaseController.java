@@ -19,7 +19,7 @@ public class BaseController <TModel, UDto> {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    ResponseEntity<List<UDto>> getAll() {
+    ResponseEntity<List<UDto>> findAll() {
         List<UDto> dtoList = service.findAll();
         return ResponseEntity.ok(dtoList);
     }
