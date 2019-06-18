@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
 @NoArgsConstructor
 @Data
 @JsonPropertyOrder({"id", "book", "user", "rate"})
@@ -12,6 +15,8 @@ public class OpinionDto {
 
     private Long id;
 
+    @Max(value = 5)
+    @Min(value = 1)
     private int rate;
 
     private BookDto book;
