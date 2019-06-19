@@ -1,13 +1,14 @@
 package com.zzpj.repositories;
 
 import com.zzpj.entities.OrderedBook;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface OrderedBookRepository extends CrudRepository<OrderedBook, Long> {
+public interface OrderedBookRepository extends JpaRepository<OrderedBook, Long> {
     List<OrderedBook> findAll();
 
     OrderedBook save(OrderedBook ob);

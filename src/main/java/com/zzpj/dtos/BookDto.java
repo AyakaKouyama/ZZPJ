@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 @NoArgsConstructor
@@ -22,7 +23,7 @@ public class BookDto {
     public String author;
 
     @NotNull(message = "price cannot be null!")
-    private BigInteger price;
+    private BigDecimal price;
 
     public CategoryDto category;
 

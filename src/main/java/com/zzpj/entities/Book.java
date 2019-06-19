@@ -17,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 @Data
@@ -34,7 +35,7 @@ public class Book extends BaseEntity{
     private String author;
 
     @Column(name = "price", nullable = false)
-    private BigInteger price;
+    private BigDecimal price;
 
     @Column(name = "description")
     private String description;

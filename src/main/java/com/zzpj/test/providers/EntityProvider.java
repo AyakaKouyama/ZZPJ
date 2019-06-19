@@ -2,7 +2,7 @@ package com.zzpj.test.providers;
 
 import com.zzpj.entities.Book;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.security.SecureRandom;
 
 public class EntityProvider {
@@ -15,7 +15,7 @@ public class EntityProvider {
         book.setId(1l);
         book.setTitle(randomString(40));
         book.setAuthor(randomString(35));
-        book.setPrice(BigInteger.valueOf(rnd.nextInt(45)));
+        book.setPrice(BigDecimal.valueOf(10.00));
 
         return book;
     }
