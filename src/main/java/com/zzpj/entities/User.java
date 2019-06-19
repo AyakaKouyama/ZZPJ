@@ -15,6 +15,10 @@ import javax.persistence.*;
 //        @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.login = :login")
 //})
 
+@NamedQueries( {
+        @NamedQuery(name = "User.findByLogin", query = "SELECT u FROM User u WHERE u.login = :login")
+})
+
 public class User extends BaseEntity{
 
     @Column(name = "login", nullable = false, unique = true)
@@ -31,7 +35,8 @@ public class User extends BaseEntity{
             foreignKey = @ForeignKey(name = "FK__user_role_id"))
     private Role role;
 
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userDetails_id",
             foreignKey = @ForeignKey(name = "FK__user_userDetails_id"))
     private UserDetails userDetails;
