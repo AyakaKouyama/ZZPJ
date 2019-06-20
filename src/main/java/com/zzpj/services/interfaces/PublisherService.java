@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Service
 public interface PublisherService extends BaseService<Publisher, PublisherDto> {
 
     PublisherDto findByName(String name);

@@ -14,7 +14,7 @@ public interface BaseService<TModel, UDto> {
 
     UDto findById(Long id);
 
-    TModel ConvertToEntity(UDto dto);
+    TModel convertToEntity(UDto dto);
 
-    UDto ConvertToDto(TModel entity);
+    UDto convertToDto(TModel entity);
 }

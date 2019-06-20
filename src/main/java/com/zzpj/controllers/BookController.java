@@ -20,10 +20,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,13 +33,16 @@ import java.util.stream.Collectors;
 @RequestMapping("/books")
 public class BookController extends BaseController<Book, BookDto>{
 
+    private BookService bookService;
+
     public BookController(BookService service) {
         super(service);
+        this.bookService = service;
     }
 
     @Override
     @RequestMapping(method = RequestMethod.POST)
-    @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR +"')")
+   // @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR +"')")
     ResponseEntity add(@Valid @RequestBody BookDto dto) {
        return super.add(dto);
     }
@@ -46,5 +51,11 @@ public class BookController extends BaseController<Book, BookDto>{
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     ResponseEntity<BookDto> getById(@PathVariable Long id) {
         return super.getById(id);
+    }
+
+    @RequestMapping(value ="/filter", method = RequestMethod.GET)
+    ResponseEntity<List<BookDto>> filterByParam(@RequestParam(value = "sort", required = false) String filtredFiled){
+        List<BookDto> dtos = bookService.sortField(filtredFiled);
+        return ResponseEntity.ok(dtos);
     }
 }

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface OpinionService extends BaseService<Opinion, OpinionDto>{
 
     List<OpinionDto> findByUserId(Long userId);

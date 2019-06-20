@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
-@NoArgsConstructor
 @Data
 @JsonPropertyOrder({"id", "book", "user", "rate"})
 public class OpinionDto {

@@ -32,13 +32,13 @@ public class PurchaseServiceImpl extends BaseServiceImpl<PurchaseRepository, Pur
     }
 
     @Override
-    public PurchaseDto ConvertToDto(Purchase entity) {
+    public PurchaseDto convertToDto(Purchase entity) {
         PurchaseDto bookDto = modelMapper.map(entity, PurchaseDto.class);
         return bookDto;
     }
 
     @Override
-    public Purchase ConvertToEntity(PurchaseDto dto) {
+    public Purchase convertToEntity(PurchaseDto dto) {
         Purchase purchase = modelMapper.map(dto, Purchase.class);
 
         ShippingMethod shippingMethod = shippingMethodRepository.findById(dto.getShippingMethod().getId())

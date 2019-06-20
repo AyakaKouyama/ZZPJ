@@ -1,11 +1,5 @@
 package com.zzpj.entities;
 
-//public interface BaseEntity {
-//    public Long getId();
-//    public Long getVersion();
-//    public void setVersion();
-//}
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

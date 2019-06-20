@@ -9,14 +9,10 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "user")
-//@NamedQueries({
-//        @NamedQuery(name = "User.existsByName",
-//                query = "SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM User u WHERE u.login = :login"),
-//        @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.login = :login")
-//})
-
 @NamedQueries( {
-        @NamedQuery(name = "User.findByLogin", query = "SELECT u FROM User u WHERE u.login = :login")
+        @NamedQuery(name = "User.findByLogin", query = "SELECT u FROM User u WHERE u.login = :login"),
+        @NamedQuery(name = "User.existsByLogin", query = "SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM User u WHERE u.login = :login"),
+        @NamedQuery(name = "User.existsByEmail", query = "SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM User u WHERE u.email = :email"),
 })
 
 public class User extends BaseEntity{

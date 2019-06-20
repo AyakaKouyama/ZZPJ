@@ -19,12 +19,12 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleRepository,Role, RoleDt
     }
 
     @Override
-    public RoleDto ConvertToDto(Role entity) {
+    public RoleDto convertToDto(Role entity) {
         return modelMapper.map(entity, RoleDto.class);
     }
 
     @Override
-    public Role ConvertToEntity(RoleDto dto) {
+    public Role convertToEntity(RoleDto dto) {
         return modelMapper.map(dto, Role.class);
     }
 }

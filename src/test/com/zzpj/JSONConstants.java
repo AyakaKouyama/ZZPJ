@@ -40,5 +40,49 @@ public interface JSONConstants {
             "    \"name\": \"WAITING_FOR_PAYMENT\"\n" +
             "}";
 
+    String ROLE_CLIENT = "{ \n" +
+            "\"name\": \"CLIENT\"\n" +
+            "}";
 
+    String ROLE_ADMINISTRATOR = "{ \n" +
+            "\"name\": \"ADMINISTRATOR\"\n" +
+            "}";
+
+    String USER_CLIENT =  "{\n" +
+            "\"login\": \"test\",\n" +
+            "\"email\": \"test@test.test\",\n" +
+            "\"passwordHash\": \"test\",\n" +
+            "\"role\": {\n" +
+            "\"id\": 1\n" +
+            "},\n" +
+            "\"userDetails\": {\n" +
+            "\t\"street\": \"tets\",\n" +
+            "\t\"streetNumber\": \"tets\",\n" +
+            "\t\"flatNumber\": \"tets\",\n" +
+            "\t\"phoneNumber\": \"tets\",\n" +
+            "\t\"city\": \"tets\",\n" +
+            "\t\"country\": \"tets\",\n" +
+            "\t\"firstName\": \"tets\",\n" +
+            "\t\"lastName\": \"tets\"\n" +
+            "\t}\n" +
+            "}\n";
+
+    String USER_ADMINISTRATOR = "{\n" +
+            "\"login\": \"test2\",\n" +
+            "\"email\": \"test@test.test2\",\n" +
+            "\"passwordHash\": \"test\",\n" +
+            "\"role\": {\n" +
+            "\"id\": 2\n" +
+            "},\n" +
+            "\"userDetails\": {\n" +
+            "\t\"street\": \"tets\",\n" +
+            "\t\"streetNumber\": \"tets\",\n" +
+            "\t\"flatNumber\": \"tets\",\n" +
+            "\t\"phoneNumber\": \"tets\",\n" +
+            "\t\"city\": \"tets\",\n" +
+            "\t\"country\": \"tets\",\n" +
+            "\t\"firstName\": \"tets\",\n" +
+            "\t\"lastName\": \"tets\"\n" +
+            "\t}\n" +
+            "}\n";
 }

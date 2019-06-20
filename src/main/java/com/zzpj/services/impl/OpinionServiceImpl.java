@@ -4,11 +4,9 @@ import com.zzpj.dtos.OpinionDto;
 import com.zzpj.entities.Book;
 import com.zzpj.entities.Opinion;
 import com.zzpj.entities.User;
-import com.zzpj.exceptions.EntityNotFoundException;
 import com.zzpj.repositories.BookRepository;
 import com.zzpj.repositories.OpinionRepository;
 import com.zzpj.repositories.UserRepository;
-import com.zzpj.services.interfaces.BookService;
 import com.zzpj.services.interfaces.OpinionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +29,12 @@ public class OpinionServiceImpl extends BaseServiceImpl<OpinionRepository, Opini
     }
 
     @Override
-    public OpinionDto ConvertToDto(Opinion entity) {
+    public OpinionDto convertToDto(Opinion entity) {
         return modelMapper.map(entity, OpinionDto.class);
     }
 
     @Override
-    public Opinion ConvertToEntity(OpinionDto dto) {
+    public Opinion convertToEntity(OpinionDto dto) {
         Opinion opinion = modelMapper.map(dto, Opinion.class);
         Book book = bookRepository.findById(dto.getBook().getId())
                 .orElseThrow(() -> super.entityNotFoundException(dto.getBook().getId(), "Opinion"));
@@ -56,7 +54,7 @@ public class OpinionServiceImpl extends BaseServiceImpl<OpinionRepository, Opini
         List<Opinion> opinions = repository.findByUserId(userId);
 
         return opinions.stream()
-                .map(opinion -> ConvertToDto(opinion))
+                .map(opinion -> convertToDto(opinion))
                 .collect(Collectors.toList());
     }
 
@@ -68,7 +66,7 @@ public class OpinionServiceImpl extends BaseServiceImpl<OpinionRepository, Opini
         List<Opinion> opinions = repository.findByBookId(bookId);
 
         return opinions.stream()
-                .map(opinion -> ConvertToDto(opinion))
+                .map(opinion -> convertToDto(opinion))
                 .collect(Collectors.toList());
     }
 

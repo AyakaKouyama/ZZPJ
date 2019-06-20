@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-@NoArgsConstructor
 @Data
 @JsonPropertyOrder({"title", "author", "price", "category", "isbn", "numberOfPages", "description", "version"})
 public class BookDto {

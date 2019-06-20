@@ -5,7 +5,9 @@ import com.zzpj.entities.Book;
 import com.zzpj.repositories.BookRepository;
 import org.springframework.stereotype.Service;
 
-@Service
-public interface BookService extends BaseService<Book, BookDto> {
+import java.util.List;
 
+public interface BookService extends BaseService<Book, BookDto>  {
+
+    List<BookDto> sortField(String field);
 }
