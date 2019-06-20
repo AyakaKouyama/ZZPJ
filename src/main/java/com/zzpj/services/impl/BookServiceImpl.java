@@ -91,6 +91,8 @@ public class BookServiceImpl extends BaseServiceImpl<BookRepository, Book, BookD
             case "publisher":
                 dto =  this.publisherFilter(param);
                 break;
+            default:
+                dto = noFilter();
         }
 
         return dto;
@@ -123,6 +125,13 @@ public class BookServiceImpl extends BaseServiceImpl<BookRepository, Book, BookD
     public List<BookDto> publisherFilter(String publisherName) {
         //TODO no reference to publisher xd?
         return null;
+    }
+
+    public List<BookDto> noFilter() {
+        List<Book> books = bookRepository.findAll();
+
+        List<Book> sorted = books.stream().collect(Collectors.toList());
+        return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
 
