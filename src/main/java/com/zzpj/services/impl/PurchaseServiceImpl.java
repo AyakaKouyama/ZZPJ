@@ -2,9 +2,11 @@ package com.zzpj.services.impl;
 
 
 import com.zzpj.dtos.PurchaseDto;
+import com.zzpj.entities.OrderedBook;
 import com.zzpj.entities.PaymentStatus;
 import com.zzpj.entities.Purchase;
 import com.zzpj.entities.ShippingMethod;
+import com.zzpj.repositories.OrderedBookRepository;
 import com.zzpj.repositories.PaymentStatusRepository;
 import com.zzpj.repositories.PurchaseRepository;
 import com.zzpj.repositories.ShippingMethodRepository;
@@ -20,17 +22,20 @@ public class PurchaseServiceImpl extends BaseServiceImpl<PurchaseRepository, Pur
 
     private ShippingMethodRepository shippingMethodRepository;
     private PaymentStatusRepository paymentStatusRepository;
+    private OrderedBookRepository orderedBookRepository;
 
     @Autowired
     public PurchaseServiceImpl(
             PurchaseRepository repository,
             ShippingMethodRepository shippingMethodRepository,
             PaymentStatusRepository paymentStatusRepository,
+            OrderedBookRepository orderedBookRepository,
             ModelMapper modelMapper)
     {
         super(repository, modelMapper);
         this.shippingMethodRepository = shippingMethodRepository;
         this.paymentStatusRepository = paymentStatusRepository;
+        this.orderedBookRepository = orderedBookRepository;
     }
 
     @Override
@@ -52,6 +57,33 @@ public class PurchaseServiceImpl extends BaseServiceImpl<PurchaseRepository, Pur
         purchase.setPaymentStatus(paymentStatus);
 
         return purchase;
+    }
+
+    @Override
+    public PurchaseDto add(PurchaseDto dto){
+        dto = uploadTotalPrice(dto);
+        Purchase savedEntity = repository.save(convertToEntity(dto));
+        savedEntity.setVersion(0L);
+        return convertToDto(savedEntity);
+    }
+
+    @Override
+    public PurchaseDto uploadTotalPrice(PurchaseDto dto) {
+        Purchase purchase = convertToEntity(dto);
+
+        double totalPrice = 0.0;
+        totalPrice += purchase.getShippingMethod().getPrice();
+
+        List<OrderedBook> orderedBookList = orderedBookRepository.findByPurchaseId(purchase.getId());
+
+        for(OrderedBook o : orderedBookList)
+        {
+            totalPrice += o.getBook().getPrice().doubleValue();
+        }
+
+        purchase.setPrice(totalPrice);
+
+        return convertToDto(purchase);
     }
 
 }
