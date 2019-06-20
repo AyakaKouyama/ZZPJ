@@ -7,10 +7,7 @@ import com.zzpj.repositories.PublisherRepository;
 import com.zzpj.services.interfaces.PublisherService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class PublisherServiceImpl extends BaseServiceImpl<PublisherRepository,Publisher, PublisherDto> implements PublisherService {
@@ -21,12 +18,12 @@ public class PublisherServiceImpl extends BaseServiceImpl<PublisherRepository,Pu
     }
 
     @Override
-    public PublisherDto ConvertToDto(Publisher entity) {
+    public PublisherDto convertToDto(Publisher entity) {
         return modelMapper.map(entity, PublisherDto.class);
     }
 
     @Override
-    public Publisher ConvertToEntity(PublisherDto dto) {
+    public Publisher convertToEntity(PublisherDto dto) {
         return modelMapper.map(dto, Publisher.class);
     }
 
@@ -36,6 +33,6 @@ public class PublisherServiceImpl extends BaseServiceImpl<PublisherRepository,Pu
                                     .findByName(name)
                                     .orElseThrow(() -> super.entityNotFoundException("Publisher", name));
 
-        return ConvertToDto(publisher);
+        return convertToDto(publisher);
     }
 }

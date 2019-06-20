@@ -4,13 +4,13 @@ import com.zzpj.entities.BaseEntity;
 import com.zzpj.exceptions.EntityNotFoundException;
 import com.zzpj.services.interfaces.BaseService;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class BaseServiceImpl
-        <TRepository extends CrudRepository<TModel, Long>, TModel extends BaseEntity, UDto>
+        <TRepository extends JpaRepository<TModel, Long>, TModel extends BaseEntity, UDto>
         implements BaseService<TModel, UDto>
 {
 
@@ -35,31 +35,30 @@ public class BaseServiceImpl
 
     @Override
     public List<UDto> findAll() {
-        List<TModel> modelList = (List<TModel>) repository.findAll();
+        List<TModel> modelList = repository.findAll();
         return modelList
                 .stream()
                 .map(entity ->
-                        ConvertToDto(entity))
+                        convertToDto(entity))
                 .collect(Collectors.toList());
     }
 
     @Override
     public UDto add(UDto dto) {
-        TModel savedEntity = repository.save(ConvertToEntity(dto));
+        TModel savedEntity = repository.save(convertToEntity(dto));
         savedEntity.setVersion(0L);
-        return ConvertToDto(savedEntity);
+        return convertToDto(savedEntity);
     }
 
     @Override
     public UDto update(Long id, UDto dto) {
-        TModel modelFromReposiotry = repository
+        TModel modelFromRepository = repository
                         .findById(id)
                         .orElseThrow(() -> entityNotFoundException(id, "Entity"));
-        TModel editedModel = ConvertToEntity(dto);
-        editedModel.setVersion(modelFromReposiotry.getVersion());
-        editedModel.setId(id);
+        TModel editedModel = convertToEntity(dto);
+        editedModel.setVersion(modelFromRepository.getVersion());
         TModel savedEntity = repository.save(editedModel);
-        return ConvertToDto(savedEntity);
+        return convertToDto(savedEntity);
     }
 
     @Override
@@ -75,16 +74,16 @@ public class BaseServiceImpl
         TModel model = repository
                 .findById(id)
                 .orElseThrow(() -> entityNotFoundException(id, "Entity"));
-        return ConvertToDto(model);
+        return convertToDto(model);
     }
 
     @Override
-    public TModel ConvertToEntity(UDto dto) {
+    public TModel convertToEntity(UDto dto) {
         throw new UnsupportedOperationException("Method must be implemented in super class");
     }
 
     @Override
-    public UDto ConvertToDto(TModel entity) {
+    public UDto convertToDto(TModel entity) {
         throw new UnsupportedOperationException("Method must be implemented in super class");
     }
 

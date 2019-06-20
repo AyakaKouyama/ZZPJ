@@ -6,10 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 
-@NoArgsConstructor
 @Data
 @JsonPropertyOrder({"id", "name", "version" })
-
 public class PublisherDto {
 
     public Long id;

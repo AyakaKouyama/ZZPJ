@@ -11,19 +11,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class CategoryServiceImpl extends BaseServiceImpl<CategoryRepository, Category, CategoryDto> implements CategoryService {
 
-
     @Autowired
     public CategoryServiceImpl(CategoryRepository categoryRepository, ModelMapper modelMapper) {
         super(categoryRepository, modelMapper);
     }
 
     @Override
-    public CategoryDto ConvertToDto(Category entity) {
+    public CategoryDto convertToDto(Category entity) {
         return modelMapper.map(entity, CategoryDto.class);
     }
 
     @Override
-    public Category ConvertToEntity(CategoryDto dto) {
+    public Category convertToEntity(CategoryDto dto) {
         return modelMapper.map(dto, Category.class);
     }
 }

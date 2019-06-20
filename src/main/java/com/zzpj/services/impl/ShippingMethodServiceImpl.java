@@ -15,16 +15,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class ShippingMethodServiceImpl extends BaseServiceImpl<ShippingMethodRepository, ShippingMethod, ShippingMethodDto> implements ShippingMethodService {
 
+    @Autowired
     public ShippingMethodServiceImpl(ShippingMethodRepository repository, ModelMapper modelMapper) {
         super(repository, modelMapper);
     }
     @Override
-    public ShippingMethodDto ConvertToDto(ShippingMethod entity) {
+    public ShippingMethodDto convertToDto(ShippingMethod entity) {
         return modelMapper.map(entity, ShippingMethodDto.class);
     }
 
     @Override
-    public ShippingMethod ConvertToEntity(ShippingMethodDto dto) {
+    public ShippingMethod convertToEntity(ShippingMethodDto dto) {
         return modelMapper.map(dto, ShippingMethod.class);
     }
 }

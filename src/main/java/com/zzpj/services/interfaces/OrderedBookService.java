@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
-@Service
 public interface OrderedBookService extends BaseService<OrderedBook, OrderedBookDto> {
 
     List<OrderedBookDto> findByBookId(Long bookId);

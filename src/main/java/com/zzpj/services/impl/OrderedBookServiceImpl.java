@@ -4,7 +4,6 @@ import com.zzpj.dtos.OrderedBookDto;
 import com.zzpj.entities.Book;
 import com.zzpj.entities.OrderedBook;
 import com.zzpj.entities.Purchase;
-import com.zzpj.exceptions.EntityNotFoundException;
 import com.zzpj.repositories.BookRepository;
 import com.zzpj.repositories.OrderedBookRepository;
 import com.zzpj.repositories.PurchaseRepository;
@@ -35,13 +34,13 @@ public class OrderedBookServiceImpl extends BaseServiceImpl<OrderedBookRepositor
     }
 
     @Override
-    public OrderedBookDto ConvertToDto(OrderedBook entity) {
+    public OrderedBookDto convertToDto(OrderedBook entity) {
         OrderedBookDto orderedBookDto = modelMapper.map(entity, OrderedBookDto.class);
         return orderedBookDto;
     }
 
     @Override
-    public OrderedBook ConvertToEntity(OrderedBookDto dto) {
+    public OrderedBook convertToEntity(OrderedBookDto dto) {
         OrderedBook orderedBook = modelMapper.map(dto, OrderedBook.class);
         Book book = bookRepository.findById(dto.getBook().getId())
                 .orElseThrow(() -> super.entityNotFoundException(dto.getBook().getId(), "Book"));
@@ -61,7 +60,7 @@ public class OrderedBookServiceImpl extends BaseServiceImpl<OrderedBookRepositor
         List<OrderedBook> obs = repository.findByBookId(bookId);
 
         return obs.stream()
-                .map(ob -> ConvertToDto(ob))
+                .map(ob -> convertToDto(ob))
                 .collect(Collectors.toList());
     }
 
@@ -73,7 +72,7 @@ public class OrderedBookServiceImpl extends BaseServiceImpl<OrderedBookRepositor
         List<OrderedBook> obs = repository.findByPurchaseId(purchaseId);
 
         return obs.stream()
-                .map(ob -> ConvertToDto(ob))
+                .map(ob -> convertToDto(ob))
                 .collect(Collectors.toList());
     }
 }

@@ -11,9 +11,9 @@ import java.util.List;
 
 
 public class BaseController <TModel, UDto> {
+
     protected BaseService<TModel, UDto> service;
 
-    @Autowired
     public BaseController(BaseService<TModel, UDto> service){
         this.service = service;
     }

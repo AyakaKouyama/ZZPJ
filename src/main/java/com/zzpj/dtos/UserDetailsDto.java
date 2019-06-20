@@ -2,12 +2,9 @@ package com.zzpj.dtos;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
-@NoArgsConstructor
 @Data
 @JsonPropertyOrder({"id", "street", "streetNumber", "flatNumber", "phoneNumber", "city", "country", "firstName", "lastName", "version"})
 public class UserDetailsDto {
@@ -24,7 +21,7 @@ public class UserDetailsDto {
     public String flatNumber;
 
     @NotEmpty(message = "Phone number cannot be null!")
-    public Long phoneNumber;
+    public String phoneNumber;
 
     @NotEmpty(message = "City cannot be null!")
     public String city;
@@ -32,10 +29,10 @@ public class UserDetailsDto {
     @NotEmpty(message = "Country cannot be null!")
     public String country;
 
-    @NotNull(message = "First name cannot be null!")
+    @NotEmpty(message = "First name cannot be null!")
     public String firstName;
 
-    @NotNull(message = "Last name cannot be null!")
+    @NotEmpty(message = "Last name cannot be null!")
     public String lastName;
 
     public Long version;

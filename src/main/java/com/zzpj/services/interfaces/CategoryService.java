@@ -6,7 +6,6 @@ import com.zzpj.repositories.CategoryRepository;
 import com.zzpj.services.interfaces.BaseService;
 import org.springframework.stereotype.Service;
 
-@Service
 public interface CategoryService extends BaseService<Category, CategoryDto> {
 
 }

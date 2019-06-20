@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/categories")
 public class CategoryController extends BaseController<Category, CategoryDto> {
 
-    @Autowired
     public CategoryController(CategoryService service) {
         super(service);
     }

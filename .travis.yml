@@ -3,6 +3,7 @@ language:
 jdk:
 - oraclejdk11
 install:
-- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+- mvn install -DskipTests=false -Dmaven.javadoc.skip=true -B -V
 script:
 - mvn clean install
+- mvn test

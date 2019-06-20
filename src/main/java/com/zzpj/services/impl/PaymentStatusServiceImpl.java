@@ -18,13 +18,13 @@ public class PaymentStatusServiceImpl extends BaseServiceImpl<PaymentStatusRepos
     }
 
     @Override
-    public PaymentStatusDto ConvertToDto(PaymentStatus entity) {
+    public PaymentStatusDto convertToDto(PaymentStatus entity) {
         PaymentStatusDto paymentStatusDto = modelMapper.map(entity, PaymentStatusDto.class);
         return paymentStatusDto;
     }
 
     @Override
-    public PaymentStatus ConvertToEntity(PaymentStatusDto dto) {
+    public PaymentStatus convertToEntity(PaymentStatusDto dto) {
         PaymentStatus paymentStatus = modelMapper.map(dto, PaymentStatus.class);
         return paymentStatus;
     }
