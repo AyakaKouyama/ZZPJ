@@ -64,6 +64,19 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>5.2.4</version>
+				<configuration>
+					<user>db</user>
+					<password>db</password>
+					<schemas>public</schemas>
+					<url>jdbc:mysql://192.168.99.100:3306/db</url>
+					<locations>filesystem:db</locations>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
