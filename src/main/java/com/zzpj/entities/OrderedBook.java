@@ -8,12 +8,12 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "Ordered_Book")
+@Table(name = "ordered_book")
 @NamedQueries({
         @NamedQuery(name = "OrderedBook.findByBookId",
                 query = "SELECT o FROM OrderedBook o WHERE o.book.id = :bookId"),
         @NamedQuery(name = "OrderedBook.findByPurchaseId",
-                query = "SELECT o FROM OrderedBook o WHERE o.purchase.id = :purchaseId")
+                query = "SELECT o FROM OrderedBook o WHERE o.purchase.id = :purchaseId"),
 })
 public class OrderedBook extends BaseEntity{
 

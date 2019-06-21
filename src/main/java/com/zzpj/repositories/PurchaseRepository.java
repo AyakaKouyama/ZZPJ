@@ -16,4 +16,6 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
     Purchase save(Purchase purchase);
 
     Optional<Purchase> findById(Long id);
+
+    Purchase saveAndFlush(Purchase purchase);
 }

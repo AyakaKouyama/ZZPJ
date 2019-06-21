@@ -7,4 +7,6 @@ import org.springframework.stereotype.Service;
 
 public interface PaymentStatusService extends BaseService<PaymentStatus, PaymentStatusDto> {
 
+    PaymentStatus getPaymentStatusByName(String name);
+
 }

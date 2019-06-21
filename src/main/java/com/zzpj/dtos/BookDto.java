@@ -26,6 +26,8 @@ public class BookDto {
 
     public CategoryDto category;
 
+    public PublisherDto publisher;
+
     private String isbn;
 
     private Integer numberOfPages;

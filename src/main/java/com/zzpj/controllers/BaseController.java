@@ -1,20 +1,22 @@
 package com.zzpj.controllers;
 
 import com.zzpj.services.interfaces.BaseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 import java.util.List;
 
 
-public class BaseController <TModel, UDto> {
+public class BaseController<TModel, UDto> {
 
     protected BaseService<TModel, UDto> service;
 
-    public BaseController(BaseService<TModel, UDto> service){
+    public BaseController(BaseService<TModel, UDto> service) {
         this.service = service;
     }
 
@@ -43,9 +45,8 @@ public class BaseController <TModel, UDto> {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    ResponseEntity delete(@PathVariable Long id){
+    ResponseEntity delete(@PathVariable Long id) {
         service.deleteById(id);
         return ResponseEntity.ok().build();
     }
-
 }

@@ -16,7 +16,7 @@ public interface PaymentStatusRepository extends JpaRepository<PaymentStatus, Lo
 
     Optional<PaymentStatus> findById(Long id);
 
-    //boolean existsByName(String name);
+    boolean existsByName(String name);
 
-    //Optional<PaymentStatus> findByName(String name);
+    Optional<PaymentStatus> findByName(String name);
 }

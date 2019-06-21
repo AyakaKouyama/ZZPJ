@@ -51,4 +51,8 @@ public class Book extends BaseEntity{
             foreignKey = @ForeignKey(name = "FK__book_category"))
     private Category category;
 
+    @ManyToOne
+    @JoinColumn(name = "publisher_id",
+            foreignKey = @ForeignKey(name = "FK__book_publisher"))
+    private Publisher publisher;
 }

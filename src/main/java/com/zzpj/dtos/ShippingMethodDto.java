@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Data
 @JsonPropertyOrder({"id", "name", "price"})
@@ -17,6 +19,6 @@ public class ShippingMethodDto {
     @NotEmpty(message = "name cannot be null!")
     public String name;
 
-    @NotEmpty(message = "price cannot be null!")
-    public Double price;
+    @NotNull(message = "price cannot be null!")
+    public BigDecimal price;
 }
