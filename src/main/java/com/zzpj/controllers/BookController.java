@@ -78,10 +78,27 @@ public class BookController extends BaseController<Book, BookDto>{
         return super.delete(id);
     }
 
+    @RequestMapping(value ="/sort", method = RequestMethod.GET)
+    ResponseEntity<List<BookDto>> sortByParam(@RequestParam(value = "sort", required = false) String filtredFiled){
+        List<BookDto> dtos = bookService.sortField(filtredFiled);
+        return ResponseEntity.ok(dtos);
+    }
+
     @RequestMapping(value ="/filter", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('" + Constants.ADMINISTRATOR + ", " + Constants.CLIENT + "')")
-    ResponseEntity<List<BookDto>> filterByParam(@RequestParam(value = "sort", required = false) String filtredFiled){
-        List<BookDto> dtos = bookService.sortField(filtredFiled);
+        ResponseEntity<List<BookDto>> filterByParam(@RequestParam(value = "filter", required = false) String filterType,
+                                                @RequestParam(value = "param", required = false) String param){
+        List<BookDto> dtos = bookService.filterField(filterType, param);
+
+        return ResponseEntity.ok(dtos);
+    }
+
+    @RequestMapping(value ="/filterPrice", method = RequestMethod.GET)
+    ResponseEntity<List<BookDto>> filterByPrice(@RequestParam(value = "lowestPrice", required = false) String lowestPrice,
+                                                @RequestParam(value = "highestPrice", required = false) String highestPrice){
+
+        List<BookDto> dtos = bookService.priceFilter(lowestPrice, highestPrice);
+
         return ResponseEntity.ok(dtos);
     }
 }

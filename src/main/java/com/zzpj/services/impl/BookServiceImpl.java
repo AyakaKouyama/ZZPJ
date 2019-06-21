@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,10 +59,90 @@ public class BookServiceImpl extends BaseServiceImpl<BookRepository, Book, BookD
                 List<Book> sorted = books.stream().sorted(Comparator.comparing(Book::getAuthor)).collect(Collectors.toList());
                 return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
             }
+            case("price"): {
+                List<Book> sorted = books.stream().sorted(Comparator.comparing(Book::getPrice)).collect(Collectors.toList());
+                return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
+            }
+            case("numberOfPages"): {
+                List<Book> sorted = books.stream().sorted(Comparator.comparing(Book::getNumberOfPages)).collect(Collectors.toList());
+                return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
+            }
             default: {
                 return books.stream().map(this::convertToDto).collect(Collectors.toList());
             }
         }
+    }
+
+    @Override
+    public List<BookDto> filterField(String field, String param){
+        List<BookDto> dto = null;
+
+        switch (field)
+        {
+            case "title":
+                dto =  this.titleFilter(param);
+                break;
+            case "phraseInTitle":
+                dto =  this.phraseInTitleFilter(param);
+                break;
+            case "author":
+                dto =  this.authorFilter(param);
+                break;
+            case "publisher":
+                dto =  this.publisherFilter(param);
+                break;
+            default:
+                dto = noFilter();
+        }
+
+        return dto;
+    }
+
+
+    public List<BookDto> titleFilter(String title) {
+        List<Book> books = bookRepository.findAll();
+
+        List<Book> sorted = books.stream().filter(b -> b.getTitle().equals(title)).collect(Collectors.toList());
+        return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+
+    public List<BookDto> phraseInTitleFilter(String phrase) {
+        List<Book> books = bookRepository.findAll();
+
+        List<Book> sorted = books.stream().filter(b -> b.getAuthor().contains(phrase)).collect(Collectors.toList());
+        return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+
+    public List<BookDto> authorFilter(String author) {
+        List<Book> books = bookRepository.findAll();
+
+        List<Book> sorted = books.stream().filter(b -> b.getAuthor().equals(author)).collect(Collectors.toList());
+        return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    public List<BookDto> publisherFilter(String publisherName) {
+        //TODO no reference to publisher xd?
+        return null;
+    }
+
+    public List<BookDto> noFilter() {
+        List<Book> books = bookRepository.findAll();
+
+        List<Book> sorted = books.stream().collect(Collectors.toList());
+        return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+
+    public List<BookDto> priceFilter(String lowestPrice, String highestPrice) {
+        List<Book> books = bookRepository.findAll();
+
+        List<Book> sorted = books.stream()
+                .filter(b -> b.getPrice().compareTo(new BigDecimal(lowestPrice)) > 0)
+                .filter(b -> b.getPrice().compareTo(new BigDecimal(highestPrice)) < 0)
+                .collect(Collectors.toList());
+        return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
 }
