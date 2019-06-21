@@ -6,18 +6,13 @@ import com.zzpj.entities.ShippingMethod;
 import com.zzpj.services.interfaces.ShippingMethodService;
 import com.zzpj.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-=======
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
->>>>>>> dev
 import java.util.List;
 
 @RestController
