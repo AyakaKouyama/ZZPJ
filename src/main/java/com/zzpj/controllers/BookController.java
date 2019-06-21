@@ -41,19 +41,45 @@ public class BookController extends BaseController<Book, BookDto>{
     }
 
     @Override
-    @RequestMapping(method = RequestMethod.POST)
-   // @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR +"')")
-    ResponseEntity add(@Valid @RequestBody BookDto dto) {
-       return super.add(dto);
+    @PreAuthorize("hasAnyAuthority('" + Constants.ADMINISTRATOR + ", " + Constants.CLIENT + "')")
+    @RequestMapping(method = RequestMethod.GET)
+    ResponseEntity<List<BookDto>> findAll() {
+        return super.findAll();
     }
 
     @Override
+    @PreAuthorize("hasAnyAuthority('" + Constants.ADMINISTRATOR + ", " + Constants.CLIENT + "')")
+    @RequestMapping(method = RequestMethod.POST)
+    ResponseEntity add(@Valid @RequestBody BookDto dto) {
+        BookDto created = service.add(dto);
+        return new ResponseEntity<BookDto>(created, HttpStatus.CREATED);
+    }
+
+
+    @Override
+    @PreAuthorize("hasAnyAuthority('" + Constants.ADMINISTRATOR + ", " + Constants.CLIENT + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     ResponseEntity<BookDto> getById(@PathVariable Long id) {
         return super.getById(id);
     }
 
+    @Override
+    @PreAuthorize("hasAnyAuthority('" + Constants.ADMINISTRATOR + ", " + Constants.CLIENT + "')")
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    ResponseEntity update(@PathVariable Long id, @RequestBody BookDto dto) {
+        return super.update(id, dto);
+    }
+
+
+    @Override
+    @PreAuthorize("hasAnyAuthority('" + Constants.ADMINISTRATOR + "')")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    ResponseEntity delete(@PathVariable Long id){
+        return super.delete(id);
+    }
+
     @RequestMapping(value ="/filter", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('" + Constants.ADMINISTRATOR + ", " + Constants.CLIENT + "')")
     ResponseEntity<List<BookDto>> filterByParam(@RequestParam(value = "sort", required = false) String filtredFiled){
         List<BookDto> dtos = bookService.sortField(filtredFiled);
         return ResponseEntity.ok(dtos);
