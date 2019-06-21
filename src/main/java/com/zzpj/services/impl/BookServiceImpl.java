@@ -139,8 +139,8 @@ public class BookServiceImpl extends BaseServiceImpl<BookRepository, Book, BookD
         List<Book> books = bookRepository.findAll();
 
         List<Book> sorted = books.stream()
-                .filter(b -> b.getPrice().compareTo(new BigDecimal(lowestPrice)) < 0)
-                .filter(b -> b.getPrice().compareTo(new BigDecimal(highestPrice)) > 0)
+                .filter(b -> b.getPrice().compareTo(new BigDecimal(lowestPrice)) > 0)
+                .filter(b -> b.getPrice().compareTo(new BigDecimal(highestPrice)) < 0)
                 .collect(Collectors.toList());
         return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
     }
