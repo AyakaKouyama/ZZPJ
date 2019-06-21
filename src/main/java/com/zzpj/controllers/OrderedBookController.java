@@ -8,7 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -20,30 +24,29 @@ public class OrderedBookController extends BaseController<OrderedBook, OrderedBo
     private OrderedBookService service;
 
     @Override
-    @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR +"')")
+    @PreAuthorize("hasAnyAuthority('" + Constants.ADMINISTRATOR + ", " + Constants.CLIENT + "')")
     @RequestMapping(method = RequestMethod.GET)
     ResponseEntity<List<OrderedBookDto>> findAll() {
         return super.findAll();
     }
 
     @Override
-    @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR +"')")
+    @PreAuthorize("hasAnyAuthority('" + Constants.ADMINISTRATOR + ", " + Constants.CLIENT + "')")
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity add(@Valid @RequestBody OrderedBookDto dto) {
         OrderedBookDto created = service.add(dto);
         return new ResponseEntity<OrderedBookDto>(created, HttpStatus.CREATED);
     }
 
-
     @Override
-    @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR +"')")
+    @PreAuthorize("hasAnyAuthority('" + Constants.ADMINISTRATOR + ", " + Constants.CLIENT + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     ResponseEntity<OrderedBookDto> getById(@PathVariable Long id) {
         return super.getById(id);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR +"')")
+    @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     ResponseEntity update(@PathVariable Long id, @RequestBody OrderedBookDto dto) {
         return super.update(id, dto);
@@ -51,9 +54,9 @@ public class OrderedBookController extends BaseController<OrderedBook, OrderedBo
 
 
     @Override
-    @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR +"')")
+    @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    ResponseEntity delete(@PathVariable Long id){
+    ResponseEntity delete(@PathVariable Long id) {
         return super.delete(id);
     }
 
@@ -64,15 +67,15 @@ public class OrderedBookController extends BaseController<OrderedBook, OrderedBo
         this.service = baseService;
     }
 
-    @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR +"')")
-    @RequestMapping(value = "/{bookId}/book" ,method = RequestMethod.GET)
-    ResponseEntity<List<OrderedBookDto>> findByBookId(@PathVariable Long bookId){
+    @PreAuthorize("hasAnyAuthority('" + Constants.ADMINISTRATOR + ", " + Constants.CLIENT + "')")
+    @RequestMapping(value = "/{bookId}/book", method = RequestMethod.GET)
+    ResponseEntity<List<OrderedBookDto>> findByBookId(@PathVariable Long bookId) {
         return ResponseEntity.ok(service.findByBookId(bookId));
     }
 
     @PreAuthorize("hasAnyAuthority('" + Constants.ADMINISTRATOR + ", " + Constants.CLIENT + "')")
-    @RequestMapping(value = "/{purchaseId}/purchase" ,method = RequestMethod.GET)
-    ResponseEntity<List<OrderedBookDto>> findByPurchaseId(@PathVariable Long purchaseId){
+    @RequestMapping(value = "/{purchaseId}/purchase", method = RequestMethod.GET)
+    ResponseEntity<List<OrderedBookDto>> findByPurchaseId(@PathVariable Long purchaseId) {
         return ResponseEntity.ok(service.findByPurchaseId(purchaseId));
     }
 }

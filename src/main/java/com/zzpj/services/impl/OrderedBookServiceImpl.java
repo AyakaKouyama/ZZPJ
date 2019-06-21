@@ -8,6 +8,7 @@ import com.zzpj.repositories.BookRepository;
 import com.zzpj.repositories.OrderedBookRepository;
 import com.zzpj.repositories.PurchaseRepository;
 import com.zzpj.services.interfaces.OrderedBookService;
+import com.zzpj.services.interfaces.PurchaseService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,17 +21,28 @@ public class OrderedBookServiceImpl extends BaseServiceImpl<OrderedBookRepositor
 
     private BookRepository bookRepository;
     private PurchaseRepository purchaseRepository;
+    private PurchaseService purchaseService;
 
     @Autowired
     public OrderedBookServiceImpl(
             OrderedBookRepository repository,
             BookRepository bookRepository,
             PurchaseRepository purchaseRepository,
+            PurchaseService purchaseService,
             ModelMapper modelMapper)
     {
         super(repository, modelMapper);
         this.bookRepository = bookRepository;
         this.purchaseRepository = purchaseRepository;
+        this.purchaseService = purchaseService;
+    }
+
+    @Override
+    public OrderedBookDto add(OrderedBookDto dto) {
+        OrderedBook savedEntity = repository.save(convertToEntity(dto));
+        savedEntity.setVersion(0L);
+        purchaseService.uploadTotalPrice(dto.getPurchase().getId());
+        return convertToDto(savedEntity);
     }
 
     @Override

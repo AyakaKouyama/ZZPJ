@@ -14,12 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.security.PermitAll;
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
-@PermitAll
 public class AuthController {
 
     private final UserService userService;

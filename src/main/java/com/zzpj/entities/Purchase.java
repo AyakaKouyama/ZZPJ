@@ -3,8 +3,10 @@ package com.zzpj.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.jdbc.core.CallableStatementCallback;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -22,8 +24,11 @@ public class Purchase extends BaseEntity{
             foreignKey = @ForeignKey(name = "FK__purchase_payment_status"))
     private PaymentStatus paymentStatus;
 
-    @Column(name = "total_price", nullable = false)
-    private double price;
+    @Column(name = "total_price")
+    private BigDecimal price;
+
+    @Column(name = "order_id")
+    private String orderId;
 
     @ManyToOne
     @JoinColumn(name = "shipping_method_id",

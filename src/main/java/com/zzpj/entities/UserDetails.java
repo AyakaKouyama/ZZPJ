@@ -20,13 +20,13 @@ public class UserDetails extends BaseEntity{
     @Column(name = "street", nullable = false)
     private String street;
 
-    @Column(name = "streetNumber", nullable = false)
+    @Column(name = "street_number", nullable = false)
     private String streetNumber;
 
-    @Column(name = "flatNumber", nullable = false)
+    @Column(name = "flat_number", nullable = false)
     private String flatNumber;
 
-    @Column(name = "phoneNumber", nullable = false)
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
     @Column(name = "city", nullable = false)
@@ -35,10 +35,10 @@ public class UserDetails extends BaseEntity{
     @Column(name = "country", nullable = false)
     private String country;
 
-    @Column(name = "firstName", nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "lastName", nullable = false)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
 }
