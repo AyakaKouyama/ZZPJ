@@ -38,12 +38,6 @@ public class BaseController<TModel, UDto> {
         return ResponseEntity.ok(result);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    ResponseEntity update(@PathVariable Long id, @RequestBody UDto dto) {
-        UDto result = service.update(id, dto);
-        return ResponseEntity.ok(result);
-    }
-
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     ResponseEntity delete(@PathVariable Long id) {
         service.deleteById(id);

@@ -38,13 +38,6 @@ public class BookController extends BaseController<Book, BookDto> {
 
     @Override
     @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR + "')")
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    ResponseEntity update(@PathVariable Long id, @RequestBody BookDto dto) {
-        return super.update(id, dto);
-    }
-
-    @Override
-    @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     ResponseEntity delete(@PathVariable Long id) {
         return super.delete(id);
@@ -72,5 +65,12 @@ public class BookController extends BaseController<Book, BookDto> {
 
         List<BookDto> dtos = bookService.priceFilter(lowestPrice, highestPrice);
         return ResponseEntity.ok(dtos);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR + "')")
+    ResponseEntity update(@RequestBody BookDto dto) {
+        BookDto result = bookService.update(dto);
+        return ResponseEntity.ok(result);
     }
 }
