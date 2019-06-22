@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface BookService extends BaseService<Book, BookDto>  {
 
+    BookDto update(BookDto bookDto);
+
     List<BookDto> sortField(String field);
 
     List<BookDto> filterField(String field, String param);

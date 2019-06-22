@@ -49,13 +49,6 @@ public class UserController extends BaseController<User, UserDto> {
 
     @Override
     @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR + "')")
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    ResponseEntity update(@PathVariable Long id, @RequestBody UserDto dto) {
-        return super.update(id, dto);
-    }
-
-    @Override
-    @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     ResponseEntity delete(@PathVariable Long id) {
         return super.delete(id);

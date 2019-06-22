@@ -48,13 +48,6 @@ public class OpinionController extends BaseController<Opinion, OpinionDto> {
         return super.getById(id);
     }
 
-    @Override
-    @PreAuthorize("hasAnyAuthority('" + Constants.ADMINISTRATOR + ", " + Constants.CLIENT + "')")
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    ResponseEntity update(@PathVariable Long id, @RequestBody OpinionDto dto) {
-        return super.update(id, dto);
-    }
-
 
     @Override
     @PreAuthorize("hasAnyAuthority('" + Constants.ADMINISTRATOR + ", " + Constants.CLIENT + "')")

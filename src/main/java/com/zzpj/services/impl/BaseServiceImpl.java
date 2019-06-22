@@ -11,26 +11,25 @@ import java.util.stream.Collectors;
 
 public class BaseServiceImpl
         <TRepository extends JpaRepository<TModel, Long>, TModel extends BaseEntity, UDto>
-        implements BaseService<TModel, UDto>
-{
+        implements BaseService<TModel, UDto> {
 
     protected TRepository repository;
-    protected  ModelMapper modelMapper;
+    protected ModelMapper modelMapper;
 
     public BaseServiceImpl(
             TRepository repository,
             ModelMapper modelMapper
-    ){
+    ) {
         this.repository = repository;
         this.modelMapper = modelMapper;
     }
 
-    protected EntityNotFoundException entityNotFoundException(Long id, String name){
-        return new EntityNotFoundException(name + " with id " + id  + " not found.");
+    protected EntityNotFoundException entityNotFoundException(Long id, String name) {
+        return new EntityNotFoundException(name + " with id " + id + " not found.");
     }
 
-    protected EntityNotFoundException entityNotFoundException(String entity, String value){
-        return new EntityNotFoundException(entity +" with " + value + " doesn't exists.");
+    protected EntityNotFoundException entityNotFoundException(String entity, String value) {
+        return new EntityNotFoundException(entity + " with " + value + " doesn't exists.");
     }
 
     @Override
@@ -50,20 +49,20 @@ public class BaseServiceImpl
         return convertToDto(savedEntity);
     }
 
-    @Override
+  /*  @Override
     public UDto update(Long id, UDto dto) {
         TModel modelFromRepository = repository
-                        .findById(id)
-                        .orElseThrow(() -> entityNotFoundException(id, "Entity"));
+                .findById(id)
+                .orElseThrow(() -> entityNotFoundException(id, "Entity"));
         TModel editedModel = convertToEntity(dto);
         editedModel.setVersion(modelFromRepository.getVersion());
         TModel savedEntity = repository.save(editedModel);
         return convertToDto(savedEntity);
-    }
+    } */
 
     @Override
     public void deleteById(Long id) {
-        if(!repository.existsById(id)){
+        if (!repository.existsById(id)) {
             throw entityNotFoundException(id, "Entity");
         }
         repository.deleteById(id);
@@ -86,6 +85,4 @@ public class BaseServiceImpl
     public UDto convertToDto(TModel entity) {
         throw new UnsupportedOperationException("Method must be implemented in super class");
     }
-
-
 }

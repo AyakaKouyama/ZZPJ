@@ -1,27 +1,17 @@
 package com.zzpj.services.impl;
 
 import com.zzpj.dtos.BookDto;
-import com.zzpj.dtos.BuyerDto;
-import com.zzpj.dtos.OrderDto;
-import com.zzpj.dtos.OrderResponseDto;
-import com.zzpj.dtos.OrderedBookDto;
-import com.zzpj.dtos.ProductDto;
 import com.zzpj.entities.Book;
 import com.zzpj.entities.Category;
-import com.zzpj.entities.OrderedBook;
-import com.zzpj.entities.Purchase;
-import com.zzpj.entities.User;
-import com.zzpj.entities.UserDetails;
+import com.zzpj.entities.Publisher;
 import com.zzpj.repositories.BookRepository;
 import com.zzpj.repositories.CategoryRepository;
+import com.zzpj.repositories.PublisherRepository;
 import com.zzpj.services.interfaces.BookService;
-import com.zzpj.services.interfaces.OrderedBookService;
-import com.zzpj.services.interfaces.UserService;
-import com.zzpj.utils.Constants;
-import org.hibernate.criterion.Order;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;
@@ -32,12 +22,17 @@ public class BookServiceImpl extends BaseServiceImpl<BookRepository, Book, BookD
 
     private CategoryRepository categoryRepository;
     private BookRepository bookRepository;
+    private PublisherRepository publisherRepository;
 
     @Autowired
-    public BookServiceImpl(BookRepository bookRepository, CategoryRepository categoryRepository, ModelMapper modelMapper) {
+    public BookServiceImpl(BookRepository bookRepository,
+            CategoryRepository categoryRepository,
+            PublisherRepository publisherRepository,
+            ModelMapper modelMapper) {
         super(bookRepository, modelMapper);
         this.categoryRepository = categoryRepository;
         this.bookRepository = bookRepository;
+        this.publisherRepository = publisherRepository;
     }
 
     @Override
@@ -50,30 +45,65 @@ public class BookServiceImpl extends BaseServiceImpl<BookRepository, Book, BookD
     public Book convertToEntity(BookDto dto) {
         Book book = modelMapper.map(dto, Book.class);
         Category category = categoryRepository.findById(dto.getCategory().getId())
-                .orElseThrow(() -> super.entityNotFoundException(dto.getCategory().getId(), "Book"));
+                .orElseThrow(() -> super.entityNotFoundException(dto.getCategory().getId(), "Category"));
+        Publisher publisher = publisherRepository.findById(dto.getPublisher().getId())
+                .orElseThrow(() -> super.entityNotFoundException(dto.getPublisher().getId(), "Publisher"));
         book.setCategory(category);
+        book.setPublisher(publisher);
         return book;
     }
 
     @Override
-    public List<BookDto> sortField(String filed){
+    public BookDto update(BookDto bookDto) {
+        Book book = bookRepository.findById(bookDto.getId())
+                .orElseThrow(() -> entityNotFoundException(bookDto.getId(), "Book"));
+        Publisher publisher = publisherRepository.findById(bookDto.getPublisher().getId())
+                .orElseThrow(() -> entityNotFoundException(bookDto.getPublisher().getId(), "Publisher"));
+        Category category = categoryRepository.findById(bookDto.getCategory().getId())
+                .orElseThrow(() -> entityNotFoundException(bookDto.getCategory().getId(),
+                        "Category"));
+
+        book.setAuthor(bookDto.getAuthor());
+        book.setTitle(bookDto.getTitle());
+        book.setPublisher(publisher);
+        book.setPrice(bookDto.getPrice());
+        book.setNumberOfPages(bookDto.getNumberOfPages());
+        book.setCategory(category);
+        book.setDescription(bookDto.getDescription());
+        book.setIsbn(bookDto.getIsbn());
+
+        bookRepository.save(book);
+
+        return convertToDto(book);
+    }
+
+    @Override
+    public List<BookDto> sortField(String filed) {
         List<Book> books = bookRepository.findAll();
 
-        switch(filed){
-            case("title"): {
-                List<Book> sorted = books.stream().sorted(Comparator.comparing(Book::getTitle)).collect(Collectors.toList());
+        switch (filed) {
+            case ("title"): {
+                List<Book> sorted = books.stream()
+                        .sorted(Comparator.comparing(Book::getTitle))
+                        .collect(Collectors.toList());
                 return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
             }
-            case("author"): {
-                List<Book> sorted = books.stream().sorted(Comparator.comparing(Book::getAuthor)).collect(Collectors.toList());
+            case ("author"): {
+                List<Book> sorted = books.stream()
+                        .sorted(Comparator.comparing(Book::getAuthor))
+                        .collect(Collectors.toList());
                 return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
             }
-            case("price"): {
-                List<Book> sorted = books.stream().sorted(Comparator.comparing(Book::getPrice)).collect(Collectors.toList());
+            case ("price"): {
+                List<Book> sorted = books.stream()
+                        .sorted(Comparator.comparing(Book::getPrice))
+                        .collect(Collectors.toList());
                 return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
             }
-            case("numberOfPages"): {
-                List<Book> sorted = books.stream().sorted(Comparator.comparing(Book::getNumberOfPages)).collect(Collectors.toList());
+            case ("numberOfPages"): {
+                List<Book> sorted = books.stream()
+                        .sorted(Comparator.comparing(Book::getNumberOfPages))
+                        .collect(Collectors.toList());
                 return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
             }
             default: {
@@ -83,22 +113,21 @@ public class BookServiceImpl extends BaseServiceImpl<BookRepository, Book, BookD
     }
 
     @Override
-    public List<BookDto> filterField(String field, String param){
+    public List<BookDto> filterField(String field, String param) {
         List<BookDto> dto = null;
 
-        switch (field)
-        {
+        switch (field) {
             case "title":
-                dto =  this.titleFilter(param);
+                dto = this.titleFilter(param);
                 break;
             case "phraseInTitle":
-                dto =  this.phraseInTitleFilter(param);
+                dto = this.phraseInTitleFilter(param);
                 break;
             case "author":
-                dto =  this.authorFilter(param);
+                dto = this.authorFilter(param);
                 break;
             case "publisher":
-                dto =  this.publisherFilter(param);
+                dto = this.publisherFilter(param);
                 break;
             default:
                 dto = noFilter();
@@ -153,5 +182,4 @@ public class BookServiceImpl extends BaseServiceImpl<BookRepository, Book, BookD
                 .collect(Collectors.toList());
         return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
     }
-
 }

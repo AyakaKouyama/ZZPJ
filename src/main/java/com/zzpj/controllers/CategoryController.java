@@ -40,14 +40,6 @@ public class CategoryController extends BaseController<Category, CategoryDto> {
 
     @Override
     @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR + "')")
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    ResponseEntity update(@PathVariable Long id, @RequestBody CategoryDto dto) {
-        return super.update(id, dto);
-    }
-
-
-    @Override
-    @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     ResponseEntity delete(@PathVariable Long id) {
         service.deleteById(id);

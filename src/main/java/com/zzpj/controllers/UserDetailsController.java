@@ -38,15 +38,6 @@ public class UserDetailsController extends BaseController<UserDetails, UserDetai
         return new ResponseEntity<UserDetailsDto>(created, HttpStatus.CREATED);
     }
 
-
-    @Override
-    @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR + "')")
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    ResponseEntity update(@PathVariable Long id, @RequestBody UserDetailsDto dto) {
-        return super.update(id, dto);
-    }
-
-
     @Override
     @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
