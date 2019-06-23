@@ -20,8 +20,11 @@ import java.util.List;
 @RequestMapping("/userDetails")
 public class UserDetailsController extends BaseController<UserDetails, UserDetailsDto> {
 
+    private  UserDetailsService userDetailsService;
+
     public UserDetailsController(UserDetailsService service) {
         super(service);
+        this.userDetailsService = service;
     }
 
     @Override
@@ -43,5 +46,11 @@ public class UserDetailsController extends BaseController<UserDetails, UserDetai
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     ResponseEntity delete(@PathVariable Long id) {
         return super.delete(id);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    ResponseEntity update(@RequestBody UserDetailsDto dto) {
+        UserDetailsDto result = userDetailsService.update(dto);
+        return ResponseEntity.ok(result);
     }
 }
