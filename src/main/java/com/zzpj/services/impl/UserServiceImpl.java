@@ -1,10 +1,7 @@
 package com.zzpj.services.impl;
 
-import com.zzpj.dtos.BookDto;
 import com.zzpj.dtos.UserDto;
-import com.zzpj.entities.Book;
-import com.zzpj.entities.Role;
-import com.zzpj.entities.User;
+import com.zzpj.entities.*;
 import com.zzpj.exceptions.EmptyFieldException;
 import com.zzpj.exceptions.EntityAlreadyExistsException;
 import com.zzpj.exceptions.EntityNotFoundException;
@@ -64,6 +61,25 @@ public class UserServiceImpl extends BaseServiceImpl<UserRepository, User, UserD
         user.setRole(role);
 
         return user;
+    }
+
+    @Override
+    public UserDto update(UserDto userDto) {
+        User user = userRepository.findById(userDto.getId())
+                .orElseThrow(() -> entityNotFoundException(userDto.getId(), "Book"));
+        Role role = roleRepository.findById(userDto.getRole().getId())
+                .orElseThrow(()-> entityNotFoundException(userDto.getRole().getId(), "Role"));
+        UserDetails userDetails = userDetailsRepository.findById(userDto.getUserDetails().getId())
+                .orElseThrow(()->entityNotFoundException(userDto.getUserDetails().getId(),"UserDetails"));
+
+        user.setLogin(userDto.getLogin());
+        user.setEmail(userDto.getEmail());
+        user.setRole(role);
+        user.setUserDetails(userDetails);
+
+        userRepository.save(user);
+
+        return convertToDto(user);
     }
 
     @Override
