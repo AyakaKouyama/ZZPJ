@@ -35,11 +35,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class BookControllerTest {
+public class PaymentStatusControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -82,29 +83,11 @@ public class BookControllerTest {
     }
 
     @Test
-    public void shouldReturnCreated_Book() throws Exception {
-        String token = generateToken(Constants.ADMINISTRATOR);
+    public void shouldReturnOkAndPaymentStatusesList() throws Exception {
 
-        mockMvc.perform(post("/categories")
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JSONConstants.CATEGORY));
-
-        mockMvc.perform(post("/books")
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JSONConstants.BOOK))
-                .andDo(print())
-                .andExpect(status().isCreated())
-                .andExpect(content().string(containsString("test")));
-    }
-
-    @Test
-    public void shouldReturnOkAndBookList() throws Exception {
-
-        mockMvc.perform(get("/books"))
+        mockMvc.perform(get("/paymentStatuses"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Ksiazka testowa")));
+                .andExpect(content().string(containsString("PAID")));
     }
 }

@@ -54,20 +54,6 @@ public class OpinionServiceTest {
         assertThat(rate).isEqualTo(4);
     }
 
-    private List<Opinion> creteOpinionList() {
-        List<Opinion> opinionList = new ArrayList<>();
-
-        Opinion opinion1 = new Opinion();
-        opinion1.setRate(3);
-        opinionList.add(opinion1);
-
-        Opinion opinion2 = new Opinion();
-        opinion2.setRate(5);
-        opinionList.add(opinion2);
-
-        return opinionList;
-    }
-
     private List<Book> createBookList() {
         List<Book> bookList = new ArrayList<>();
         Book book = new Book();

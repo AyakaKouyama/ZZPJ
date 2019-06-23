@@ -92,4 +92,9 @@ public interface JSONConstants {
     String PUBLISHER = "{\n" +
             "\"name\": \"test publisher\"\n" +
             "}";
+
+    String SHIPPING_METHOD = "{ \n" +
+            "\"name\": \"Electronical\"\n" +
+            "\"price\": \"6.0\"\n" +
+            "}";
 }
