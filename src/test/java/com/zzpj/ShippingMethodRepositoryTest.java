@@ -5,11 +5,14 @@ import com.zzpj.repositories.ShippingMethodRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.ws.rs.core.Application;
 import java.math.BigDecimal;
 import java.util.Optional;
 
@@ -29,23 +32,23 @@ public class ShippingMethodRepositoryTest {
 
     @Test
     public void whenFindByName_thenReturnShippingMethod(){
-       /* //given
+        //given
         ShippingMethod shippingMethod = new ShippingMethod();
-        shippingMethod.setId(1L);
+        shippingMethod.setId(3L);
         shippingMethod.setName("test");
         shippingMethod.setPrice(new BigDecimal(1));
 
-        entityManager.persist(shippingMethod);  // te dwie linijki muszą być. spring w apce robi to automatycznie. w testach trzebac zrobić to ręcznie.
-        entityManager.flush();        //
+        entityManager.persist(shippingMethod);
+        entityManager.flush();
 
         //when
-        Optional<ShippingMethod> shippingMethodOptional = shippingMethodRepository.findById(1L);
+        Optional<ShippingMethod> shippingMethodOptional = shippingMethodRepository.findById(3L);
 
         //then
         assertThat(shippingMethodOptional.isPresent()).isEqualTo(true);
         assertThat(shippingMethodOptional.get().getName()).isSameAs("test");
-        assertThat(shippingMethodOptional.get().getId()).isEqualTo(1L);
-        assertThat(shippingMethodOptional.get().getPrice()).isEqualTo(new BigDecimal(1));*/
+        assertThat(shippingMethodOptional.get().getId()).isEqualTo(3L);
+        assertThat(shippingMethodOptional.get().getPrice()).isEqualTo(new BigDecimal(1));
     }
 
 }

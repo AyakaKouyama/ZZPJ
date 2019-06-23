@@ -20,10 +20,12 @@ public class OpinionServiceImpl extends BaseServiceImpl<OpinionRepository, Opini
 
     private UserRepository userRepository;
     private BookRepository bookRepository;
+    private OpinionRepository opinionRepository;
 
     @Autowired
     public OpinionServiceImpl(OpinionRepository opinionRepository, UserRepository userRepository, BookRepository bookRepository, ModelMapper modelMapper){
         super(opinionRepository, modelMapper);
+        this.opinionRepository = opinionRepository;
         this.userRepository = userRepository;
         this.bookRepository = bookRepository;
     }
@@ -75,6 +77,6 @@ public class OpinionServiceImpl extends BaseServiceImpl<OpinionRepository, Opini
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> super.entityNotFoundException(bookId, "Book"));
 
-        return repository.getAverageRateForBook(bookId);
+        return opinionRepository.getAverageRateForBook(bookId);
     }
 }

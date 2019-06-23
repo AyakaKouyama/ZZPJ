@@ -2,13 +2,7 @@ package com.zzpj;
 
 import com.zzpj.entities.Role;
 import com.zzpj.entities.User;
-import com.zzpj.repositories.RoleRepository;
 import com.zzpj.repositories.UserRepository;
-import com.zzpj.security.JwtAuthenticationResponse;
-import com.zzpj.security.JwtTokenProvider;
-import com.zzpj.security.UserPrincipal;
-import com.zzpj.services.interfaces.RoleService;
-import com.zzpj.services.interfaces.UserService;
 import com.zzpj.utils.Constants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -19,14 +13,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -35,8 +25,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -52,31 +44,27 @@ public class BookControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-  /*  @Before
-    public void init() throws Exception
-    {
-        mockMvc.perform(post("/roles")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JSONConstants.ROLE_CLIENT));
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
-        mockMvc.perform(post("/roles")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JSONConstants.ROLE_ADMINISTRATOR));
+    @MockBean
+    private UserRepository userRepository;
 
-        mockMvc.perform(post("/users")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JSONConstants.USER_CLIENT));
-
-        mockMvc.perform(post("/users")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JSONConstants.USER_ADMINISTRATOR));
+    @Before
+    public void init() {
+        User administrator = new User();
+        Role roleAdmin = new Role();
+        administrator.setLogin("admin");
+        administrator.setPasswordHash(passwordEncoder.encode("test"));
+        roleAdmin.setName("ADMINISTRATOR");
+        administrator.setRole(roleAdmin);
+        when(userRepository.findByLogin("admin")).thenReturn(Optional.of(administrator));
     }
 
-    public String generateToken(String role){
-
-        String login = role.equals(Constants.CLIENT) ? "test" : "test2";
+    public String generateToken(String role) {
+        String login = role.equals(Constants.CLIENT) ? "client" : "admin";
         Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + 604800000);
+        Date expiryDate = new Date(now.getTime() + 1800000);
         Claims claims = Jwts.claims().setSubject(login);
 
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);
@@ -88,39 +76,33 @@ public class BookControllerTest {
                 .setClaims(claims)
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, "JWTSuperSecretKey")
+                .signWith(SignatureAlgorithm.HS512,
+                        "r468cwiU4C4lJSI2tMrsxEA32UON6SPNixVzd2YtTJXSzFNaAGymEjeIXu9z66-jhHW_n-YG5uP-hWXX55M3r32spAXQtnfD15f-Q8d_ejEQObHJDxcbyXc0toL9wg56dPl3FTAjF0B_ByLvU2yHBwO3kh6hY-Tl4e-hdB282vKBnBDBtr8_cL1pm_P2jFFlXufW4LqWWuqkGrnTSR4D8Gjn4R_vztgVvWztZKpwdo60_3Xa-_VJcHQ2LgvDHfgLKbzXTtNrNsqWLdDL98hXs7ElgPHfYOco3wmvSOcoqGLMOn06rV7jSQDRKj76A6vfiPE9A5biIl-nXI7oDrT5Uw")
                 .compact();
-    } */
+    }
 
     @Test
-    public void shouldReturnCreated_Book() throws Exception{
-      /*  mockMvc.perform(post("/categories")
+    public void shouldReturnCreated_Book() throws Exception {
+        String token = generateToken(Constants.ADMINISTRATOR);
+
+        mockMvc.perform(post("/categories")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JSONConstants.CATEGORY));
 
         mockMvc.perform(post("/books")
-                //.header(HttpHeaders.AUTHORIZATION, "Bearer " + generateToken(Constants.ADMINISTRATOR))
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JSONConstants.BOOK))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(content().string(containsString("test"))); */
+                .andExpect(content().string(containsString("test")));
     }
 
     @Test
     public void shouldReturnOkAndBookList() throws Exception {
-      /*  //Given
-        mockMvc.perform(post("/categories")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JSONConstants.CATEGORY));
-
-        mockMvc.perform(post("/books")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JSONConstants.BOOK));
-        //
 
         mockMvc.perform(get("/books")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("test"))); */
-
+                .andExpect(content().string(containsString("Ksiazka testowa")));
     }
 }

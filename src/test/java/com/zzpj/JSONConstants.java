@@ -2,17 +2,20 @@ package com.zzpj;
 
 public interface JSONConstants {
 
-    String BOOK = "{\n" +
+    String BOOK = " {\n" +
             "    \"title\": \"test\",\n" +
             "    \"author\": \"test\",\n" +
             "    \"price\": 10.00,\n" +
-            "    \"category\": \n" +
-            "    {\n" +
+            "    \"category\": {\n" +
             "    \"id\": 1\n" +
             "    },\n" +
             "    \"isbn\": \"2233\",\n" +
             "    \"numberOfPages\": 100,\n" +
-            "    \"description\": \"test\"\n" +
+            "    \"description\": \"test\",\n" +
+            "    \"publisher\":\n" +
+            "{\n" +
+            "\"id\": 1\n" +
+            "}\n" +
             " }";
 
     String BOOK2 = "{\n" +
@@ -29,7 +32,7 @@ public interface JSONConstants {
             " }";
 
     String CATEGORY = "{\n" +
-            "\"name\": \"fantasy\"\n" +
+            "\"name\": \"test\"\n" +
             "}\n";
 
     String CATEGORY2 = "{\n" +
@@ -85,4 +88,8 @@ public interface JSONConstants {
             "\t\"lastName\": \"tets\"\n" +
             "\t}\n" +
             "}\n";
+
+    String PUBLISHER = "{\n" +
+            "\"name\": \"test publisher\"\n" +
+            "}";
 }
