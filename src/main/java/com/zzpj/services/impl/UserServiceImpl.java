@@ -1,6 +1,8 @@
 package com.zzpj.services.impl;
 
+import com.zzpj.dtos.BookDto;
 import com.zzpj.dtos.UserDto;
+import com.zzpj.entities.Book;
 import com.zzpj.entities.Role;
 import com.zzpj.entities.User;
 import com.zzpj.exceptions.EmptyFieldException;
@@ -18,6 +20,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl extends BaseServiceImpl<UserRepository, User, UserDto> implements UserService {
@@ -88,5 +93,86 @@ public class UserServiceImpl extends BaseServiceImpl<UserRepository, User, UserD
     public User findByLogin(String login) {
         return userRepository.findByLogin(login)
                 .orElseThrow(() -> new EntityNotFoundException("User with login " + login + " not found."));
+    }
+
+    @Override
+    public List<UserDto> sortField(String filed){
+        List<User> users = userRepository.findAll();
+        switch(filed) {
+            default: {
+                return users.stream().map(this::convertToDto).collect(Collectors.toList());
+            }
+        }
+    }
+
+    @Override
+    public List<UserDto> filterField(String field, String param){
+        List<UserDto> dto = null;
+        switch (field)
+        {
+            case "login":
+                dto =  this.loginFilter(param);
+                break;
+            case "email":
+                dto =  this.emailFilter(param);
+                break;
+            case "roleName":
+                dto =  this.roleNameFilter(param);
+                break;
+            case "firstName":
+                dto =  this.firstNameFilter(param);
+                break;
+            case "lastName":
+                dto =  this.lastNameFilter(param);
+                break;
+            case "city":
+                dto =  this.cityFilter(param);
+                break;
+            default:
+            dto = noFilter();
+        }
+        return dto;
+    }
+
+    public List<UserDto> loginFilter(String login) {
+        List<User> users = userRepository.findAll();
+        List<User> sorted = users.stream().filter(b -> b.getLogin().equals(login)).collect(Collectors.toList());
+        return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    public List<UserDto> emailFilter(String email) {
+        List<User> users = userRepository.findAll();
+        List<User> sorted = users.stream().filter(b -> b.getEmail().equals(email)).collect(Collectors.toList());
+        return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    public List<UserDto> roleNameFilter(String roleName) {
+        List<User> users = userRepository.findAll();
+        List<User> sorted = users.stream().filter(b -> b.getRole().getName().equals(roleName)).collect(Collectors.toList());
+        return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    public List<UserDto> firstNameFilter(String firstName) {
+        List<User> users = userRepository.findAll();
+        List<User> sorted = users.stream().filter(b -> b.getUserDetails().getFirstName().equals(firstName)).collect(Collectors.toList());
+        return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    public List<UserDto> lastNameFilter(String lastName) {
+        List<User> users = userRepository.findAll();
+        List<User> sorted = users.stream().filter(b -> b.getUserDetails().getLastName().equals(lastName)).collect(Collectors.toList());
+        return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    public List<UserDto> cityFilter(String city) {
+        List<User> users = userRepository.findAll();
+        List<User> sorted = users.stream().filter(b -> b.getUserDetails().getCity().equals(city)).collect(Collectors.toList());
+        return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    public List<UserDto> noFilter() {
+        List<User> users = userRepository.findAll();
+        List<User> sorted = users.stream().collect(Collectors.toList());
+        return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 }
