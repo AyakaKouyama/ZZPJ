@@ -21,6 +21,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -99,6 +100,30 @@ public class UserServiceImpl extends BaseServiceImpl<UserRepository, User, UserD
     public List<UserDto> sortField(String filed){
         List<User> users = userRepository.findAll();
         switch(filed) {
+            case("login"): {
+                List<User> sorted = users.stream().sorted(Comparator.comparing(User::getLogin)).collect(Collectors.toList());
+                return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
+            }
+            case("email"): {
+                List<User> sorted = users.stream().sorted(Comparator.comparing(User::getEmail)).collect(Collectors.toList());
+                return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
+            }
+            case("roleName"): {
+                List<User> sorted = users.stream().sorted(Comparator.comparing(u -> u.getRole().getName())).collect(Collectors.toList());
+                return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
+            }
+            case("firstName"): {
+                List<User> sorted = users.stream().sorted(Comparator.comparing(u -> u.getUserDetails().getFirstName())).collect(Collectors.toList());
+                return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
+            }
+            case("lastName"): {
+                List<User> sorted = users.stream().sorted(Comparator.comparing(u -> u.getUserDetails().getLastName())).collect(Collectors.toList());
+                return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
+            }
+            case("city"): {
+                List<User> sorted = users.stream().sorted(Comparator.comparing(u -> u.getUserDetails().getCity())).collect(Collectors.toList());
+                return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
+            }
             default: {
                 return users.stream().map(this::convertToDto).collect(Collectors.toList());
             }
