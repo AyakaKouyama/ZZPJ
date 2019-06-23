@@ -148,7 +148,7 @@ public class BookServiceImpl extends BaseServiceImpl<BookRepository, Book, BookD
     public List<BookDto> phraseInTitleFilter(String phrase) {
         List<Book> books = bookRepository.findAll();
 
-        List<Book> sorted = books.stream().filter(b -> b.getAuthor().contains(phrase)).collect(Collectors.toList());
+        List<Book> sorted = books.stream().filter(b -> b.getTitle().contains(phrase)).collect(Collectors.toList());
         return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 

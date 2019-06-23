@@ -82,7 +82,7 @@ public class ShippingMethodServiceImpl extends BaseServiceImpl<ShippingMethodRep
     List<ShippingMethodDto> priceFilter(String price) {
         List<ShippingMethod> shippingMethods = shippingMethodRepository.findAll();
         List<ShippingMethod> sorted = shippingMethods.stream()
-                .filter(b -> b.getPrice().compareTo(BigDecimal.valueOf(Double.valueOf(price))) >= 0)
+                .filter(b -> b.getPrice().compareTo(BigDecimal.valueOf(Double.valueOf(price))) <= 0)
                 .collect(Collectors.toList());
         return sorted.stream().map(this::convertToDto).collect(Collectors.toList());
     }
