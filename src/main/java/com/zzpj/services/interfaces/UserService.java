@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface UserService extends BaseService<User, UserDto> {
 
+   UserDto update(UserDto userDto);
+
    Authentication authenticate(String login, String password);
 
    User findByLogin(String login);

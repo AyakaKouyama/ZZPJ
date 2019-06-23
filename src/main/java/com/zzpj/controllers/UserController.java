@@ -66,4 +66,10 @@ public class UserController extends BaseController<User, UserDto> {
 
         return ResponseEntity.ok(dtos);
     }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    ResponseEntity update(@RequestBody UserDto dto) {
+        UserDto result = userService.update(dto);
+        return ResponseEntity.ok(result);
+    }
 }
