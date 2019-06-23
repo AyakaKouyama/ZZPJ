@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/AyakaKouyama/ZZPJ.svg?branch=master)](https://travis-ci.org/AyakaKouyama/ZZPJ) 
 
+**DEV Jest Domyślnym Branchem!**
+
 **Docker (instrukcja dla systemu Windows)**  
 Należy pobrać i zainstalować Docker ToolBox (zaznaczyć przy instalacji VirtualBox i Git jeśli nieposiadane). Następnie (z poziomu CMD):  
 - znaleźć lokalizację GitBash na dysku (domyślnie `"C:\Program Files\Git\bin\bash.exe"`) i z tej lokalizacji wydać polecenie:  
