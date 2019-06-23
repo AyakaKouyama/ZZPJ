@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.zzpj.repositories")
-@PropertySource("classpath:application-test.properties")
+@PropertySource("classpath:application.properties")
 @EnableTransactionManagement
 public class DataConfig {
 

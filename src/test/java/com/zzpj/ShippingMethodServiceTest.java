@@ -1,3 +1,5 @@
+package com.zzpj;
+
 import com.zzpj.dtos.ShippingMethodDto;
 import com.zzpj.entities.ShippingMethod;
 import com.zzpj.repositories.ShippingMethodRepository;

@@ -30,21 +30,21 @@ public class BookRepositoryTest {
     public void whenFindByName_thenReturnEmployee() {
         // given
         Book book = new Book();
-        book.setId(1L);
+        book.setId(3L);
         book.setAuthor("test");
         book.setPrice(new BigDecimal(10.0));
         book.setTitle("title");
 
-        entityManager.persist(book);  // te dwie linijki muszą być. spring w apce robi to automatycznie. w testach trzebac zrobić to ręcznie.
-        entityManager.flush();        //
+        entityManager.persist(book);
+        entityManager.flush();
 
         // when
-        Optional<Book> foundBook = bookRepository.findById(1L);
+        Optional<Book> foundBook = bookRepository.findById(3L);
 
         // then
         assertThat(foundBook.isPresent()).isEqualTo(true);
         assertThat(foundBook.get().getAuthor()).isEqualTo("test");
-        assertThat(foundBook.get().getId()).isEqualTo(1L);
+        assertThat(foundBook.get().getId()).isEqualTo(3L);
         assertThat(foundBook.get().getTitle()).isEqualTo("title");
     }
 }
