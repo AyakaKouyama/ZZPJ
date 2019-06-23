@@ -1,0 +1,51 @@
+package com.zzpj;
+
+import com.zzpj.entities.ShippingMethod;
+import com.zzpj.repositories.ShippingMethodRepository;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import java.math.BigDecimal;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@RunWith(SpringRunner.class)
+@DataJpaTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+public class ShippingMethodRepositoryTest {
+
+    @Autowired
+    private TestEntityManager entityManager;
+
+
+    @Autowired
+    private ShippingMethodRepository shippingMethodRepository;
+
+    @Test
+    public void whenFindByName_thenReturnShippingMethod(){
+       /* //given
+        ShippingMethod shippingMethod = new ShippingMethod();
+        shippingMethod.setId(1L);
+        shippingMethod.setName("test");
+        shippingMethod.setPrice(new BigDecimal(1));
+
+        entityManager.persist(shippingMethod);  // te dwie linijki muszą być. spring w apce robi to automatycznie. w testach trzebac zrobić to ręcznie.
+        entityManager.flush();        //
+
+        //when
+        Optional<ShippingMethod> shippingMethodOptional = shippingMethodRepository.findById(1L);
+
+        //then
+        assertThat(shippingMethodOptional.isPresent()).isEqualTo(true);
+        assertThat(shippingMethodOptional.get().getName()).isSameAs("test");
+        assertThat(shippingMethodOptional.get().getId()).isEqualTo(1L);
+        assertThat(shippingMethodOptional.get().getPrice()).isEqualTo(new BigDecimal(1));*/
+    }
+
+}
