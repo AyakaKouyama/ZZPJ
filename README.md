@@ -1,6 +1,18 @@
 [![Build Status](https://travis-ci.org/AyakaKouyama/ZZPJ.svg?branch=master)](https://travis-ci.org/AyakaKouyama/ZZPJ) 
 
-**DEV Jest Domyślnym Branchem!**
+**DEV Jest Domyślnym Branchem!**  
+  
+**API dla księgarni internetowej**  
+Features: 
+- dodawanie, usuwanie, edycja (w wybranych encjach) książek, użykowników, zamówień, metod dostawy, ról, kategorii, wydawców książek
+- uwierzytelnianie i autoryzacja z wykorzystaniem JWT 
+- tworzenie zamówień i dokonywanie płatności poprzez serwis PayU  
+- filtrowanie i sortowanie książek i użytkowników 
+  
+Diagram ERD
+![alt text]( https://i.ibb.co/ydv96wt/erd.png)  
+
+**INSTRUKCJA OBSŁUGI**`
 
 **Docker (instrukcja dla systemu Windows)**  
 Należy pobrać i zainstalować Docker ToolBox (zaznaczyć przy instalacji VirtualBox i Git jeśli nieposiadane). Następnie (z poziomu CMD):  
