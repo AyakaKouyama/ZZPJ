@@ -3,7 +3,11 @@ package com.zzpj.entities;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @Data
@@ -17,12 +21,11 @@ import java.math.BigDecimal;
 })
 
 
-public class ShippingMethod extends BaseEntity{
+public class ShippingMethod extends BaseEntity {
 
     @Column(name = "name", unique = true)
     private String name;
 
     @Column(name = "price", nullable = false)
     private BigDecimal price;
-
 }

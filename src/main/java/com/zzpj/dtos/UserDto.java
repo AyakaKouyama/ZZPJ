@@ -1,9 +1,11 @@
 package com.zzpj.dtos;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @JsonPropertyOrder({"id", "login", "email", "passwordHash", "role", "userDetails", "version"})
 public class UserDto {
 

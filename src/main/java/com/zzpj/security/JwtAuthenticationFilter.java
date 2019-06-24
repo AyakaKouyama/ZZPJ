@@ -1,6 +1,5 @@
 package com.zzpj.security;
 
-import com.zzpj.dtos.UserDto;
 import com.zzpj.entities.User;
 import com.zzpj.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

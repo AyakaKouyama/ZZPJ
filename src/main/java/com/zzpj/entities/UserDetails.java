@@ -3,19 +3,15 @@ package com.zzpj.entities;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Data
 @NoArgsConstructor
 @Entity
 @Table(name = "userDetails")
-//@NamedQueries({
-//        @NamedQuery(name = "UserDetails.existsByName",
-//                query = "SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM UserDetails ud WHERE ud.id = :id"),
-//        @NamedQuery(name = "UserDetails.findByName", query = "SELECT ud FROM UserDetails ud WHERE ud.id = :id")
-//})
-
-public class UserDetails extends BaseEntity{
+public class UserDetails extends BaseEntity {
 
     @Column(name = "street", nullable = false)
     private String street;
@@ -40,5 +36,4 @@ public class UserDetails extends BaseEntity{
 
     @Column(name = "last_name", nullable = false)
     private String lastName;
-
 }

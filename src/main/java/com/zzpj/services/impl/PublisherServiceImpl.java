@@ -1,6 +1,5 @@
 package com.zzpj.services.impl;
 
-
 import com.zzpj.dtos.PublisherDto;
 import com.zzpj.entities.Publisher;
 import com.zzpj.repositories.PublisherRepository;
@@ -10,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PublisherServiceImpl extends BaseServiceImpl<PublisherRepository,Publisher, PublisherDto> implements PublisherService {
+public class PublisherServiceImpl extends BaseServiceImpl<PublisherRepository, Publisher, PublisherDto> implements
+        PublisherService {
 
     @Autowired
     public PublisherServiceImpl(PublisherRepository repository, ModelMapper modelMapper) {
@@ -30,8 +30,8 @@ public class PublisherServiceImpl extends BaseServiceImpl<PublisherRepository,Pu
     @Override
     public PublisherDto findByName(String name) {
         Publisher publisher = repository
-                                    .findByName(name)
-                                    .orElseThrow(() -> super.entityNotFoundException("Publisher", name));
+                .findByName(name)
+                .orElseThrow(() -> super.entityNotFoundException("Publisher", name));
 
         return convertToDto(publisher);
     }

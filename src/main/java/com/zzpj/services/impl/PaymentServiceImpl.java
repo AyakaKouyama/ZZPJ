@@ -3,15 +3,11 @@ package com.zzpj.services.impl;
 import com.zzpj.dtos.OrderDto;
 import com.zzpj.dtos.OrderResponseDto;
 import com.zzpj.dtos.PayUToken;
-import com.zzpj.dtos.PaymentStatusDto;
 import com.zzpj.dtos.PaymentStatusPayUDto;
 import com.zzpj.services.interfaces.PaymentService;
 import com.zzpj.utils.Constants;
 import org.glassfish.jersey.client.ClientProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.ApplicationScope;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;

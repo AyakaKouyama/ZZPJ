@@ -16,14 +16,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class OpinionServiceImpl extends BaseServiceImpl<OpinionRepository, Opinion, OpinionDto> implements OpinionService {
+public class OpinionServiceImpl extends BaseServiceImpl<OpinionRepository, Opinion, OpinionDto> implements
+        OpinionService {
 
     private UserRepository userRepository;
     private BookRepository bookRepository;
     private OpinionRepository opinionRepository;
 
     @Autowired
-    public OpinionServiceImpl(OpinionRepository opinionRepository, UserRepository userRepository, BookRepository bookRepository, ModelMapper modelMapper){
+    public OpinionServiceImpl(OpinionRepository opinionRepository,
+            UserRepository userRepository,
+            BookRepository bookRepository,
+            ModelMapper modelMapper) {
         super(opinionRepository, modelMapper);
         this.opinionRepository = opinionRepository;
         this.userRepository = userRepository;

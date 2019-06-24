@@ -17,7 +17,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class OrderedBookServiceImpl extends BaseServiceImpl<OrderedBookRepository, OrderedBook, OrderedBookDto> implements OrderedBookService {
+public class OrderedBookServiceImpl extends BaseServiceImpl<OrderedBookRepository, OrderedBook, OrderedBookDto> implements
+        OrderedBookService {
 
     private BookRepository bookRepository;
     private PurchaseRepository purchaseRepository;
@@ -29,8 +30,7 @@ public class OrderedBookServiceImpl extends BaseServiceImpl<OrderedBookRepositor
             BookRepository bookRepository,
             PurchaseRepository purchaseRepository,
             PurchaseService purchaseService,
-            ModelMapper modelMapper)
-    {
+            ModelMapper modelMapper) {
         super(repository, modelMapper);
         this.bookRepository = bookRepository;
         this.purchaseRepository = purchaseRepository;

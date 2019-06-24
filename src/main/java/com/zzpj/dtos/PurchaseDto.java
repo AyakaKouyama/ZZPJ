@@ -2,11 +2,14 @@ package com.zzpj.dtos;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
 @JsonPropertyOrder({"id", "user", "version", "paymentStatus", "price", "shippingMethod"})
 public class PurchaseDto {
 

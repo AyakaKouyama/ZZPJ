@@ -1,13 +1,9 @@
 package com.zzpj;
 
 import com.zzpj.entities.Book;
-import com.zzpj.entities.Opinion;
 import com.zzpj.repositories.BookRepository;
-import com.zzpj.repositories.CategoryRepository;
 import com.zzpj.repositories.OpinionRepository;
-import com.zzpj.repositories.PublisherRepository;
 import com.zzpj.repositories.UserRepository;
-import com.zzpj.services.impl.BookServiceImpl;
 import com.zzpj.services.impl.OpinionServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;

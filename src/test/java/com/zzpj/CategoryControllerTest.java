@@ -51,7 +51,7 @@ public class CategoryControllerTest {
     PasswordEncoder passwordEncoder;
 
     @Before
-    public void init(){
+    public void init() {
         User administrator = new User();
         Role roleAdmin = new Role();
         administrator.setLogin("admin");

@@ -1,7 +1,11 @@
 package com.zzpj;
 
-import com.zzpj.dtos.*;
-import com.zzpj.entities.*;
+import com.zzpj.dtos.RoleDto;
+import com.zzpj.dtos.UserDetailsDto;
+import com.zzpj.dtos.UserDto;
+import com.zzpj.entities.Role;
+import com.zzpj.entities.User;
+import com.zzpj.entities.UserDetails;
 import com.zzpj.exceptions.EntityNotFoundException;
 import com.zzpj.repositories.RoleRepository;
 import com.zzpj.repositories.UserDetailsRepository;
@@ -28,19 +32,19 @@ import static org.mockito.Mockito.when;
 public class UserServiceTest {
 
     @Mock
-     RoleRepository roleRepository;
+    RoleRepository roleRepository;
 
     @Mock
-     UserDetailsRepository userDetailsRepository;
+    UserDetailsRepository userDetailsRepository;
 
     @Mock
-     AuthenticationManager authenticationManager;
+    AuthenticationManager authenticationManager;
 
     @Mock
-     UserRepository userRepository;
+    UserRepository userRepository;
 
     @Mock
-     PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
 
     private ModelMapper modelMapper = new ModelMapper();
 
@@ -58,7 +62,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void shouldSortByLogin(){
+    public void shouldSortByLogin() {
         when(userRepository.findAll()).thenReturn(createUserListForSortAndFilter());
 
         List<UserDto> sorted = userService.sortField("login");
@@ -68,7 +72,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void shouldSortByEmail(){
+    public void shouldSortByEmail() {
         when(userRepository.findAll()).thenReturn(createUserListForSortAndFilter());
 
         List<UserDto> sorted = userService.sortField("email");
@@ -78,7 +82,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void shouldSortByRoleName(){
+    public void shouldSortByRoleName() {
         when(userRepository.findAll()).thenReturn(createUserListForSortAndFilter());
 
         List<UserDto> sorted = userService.sortField("roleName");
@@ -88,7 +92,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void shouldSortByFirstName(){
+    public void shouldSortByFirstName() {
         when(userRepository.findAll()).thenReturn(createUserListForSortAndFilter());
 
         List<UserDto> sorted = userService.sortField("firstName");
@@ -98,7 +102,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void shouldSortByLastName(){
+    public void shouldSortByLastName() {
         when(userRepository.findAll()).thenReturn(createUserListForSortAndFilter());
 
         List<UserDto> sorted = userService.sortField("lastName");
@@ -108,7 +112,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void shouldSortByCity(){
+    public void shouldSortByCity() {
         when(userRepository.findAll()).thenReturn(createUserListForSortAndFilter());
 
         List<UserDto> sorted = userService.sortField("city");
@@ -118,7 +122,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void shouldFilterByLogin(){
+    public void shouldFilterByLogin() {
         when(userRepository.findAll()).thenReturn(createUserListForSortAndFilter());
 
         List<UserDto> filtered = userService.loginFilter("login1");
@@ -127,7 +131,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void shouldFilterByEmail(){
+    public void shouldFilterByEmail() {
         when(userRepository.findAll()).thenReturn(createUserListForSortAndFilter());
 
         List<UserDto> filtered = userService.emailFilter("email@email.com");
@@ -135,7 +139,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void shouldFilterByRoleName(){
+    public void shouldFilterByRoleName() {
         when(userRepository.findAll()).thenReturn(createUserListForSortAndFilter());
 
         List<UserDto> filtered = userService.roleNameFilter("CLIENT");
@@ -145,7 +149,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void shouldFilterByFirstName(){
+    public void shouldFilterByFirstName() {
         when(userRepository.findAll()).thenReturn(createUserListForSortAndFilter());
 
         List<UserDto> filtered = userService.firstNameFilter("C");
@@ -154,7 +158,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void shouldFilterByLastName(){
+    public void shouldFilterByLastName() {
         when(userRepository.findAll()).thenReturn(createUserListForSortAndFilter());
 
         List<UserDto> filtered = userService.lastNameFilter("Y");
@@ -163,7 +167,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void shouldFilterByCity(){
+    public void shouldFilterByCity() {
         when(userRepository.findAll()).thenReturn(createUserListForSortAndFilter());
 
         List<UserDto> filtered = userService.cityFilter("Warszawa");
@@ -230,7 +234,7 @@ public class UserServiceTest {
         return user;
     }
 
-    private List<User> createUserListForSortAndFilter(){
+    private List<User> createUserListForSortAndFilter() {
         List<User> users = new ArrayList<>();
 
         User user = new User();

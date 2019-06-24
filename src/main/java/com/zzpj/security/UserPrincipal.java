@@ -16,7 +16,7 @@ import java.util.Objects;
 @Setter
 public class UserPrincipal implements UserDetails {
 
-    private  Long id;
+    private Long id;
 
     private String login;
 

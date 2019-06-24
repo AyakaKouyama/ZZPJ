@@ -54,12 +54,14 @@ public class UserController extends BaseController<User, UserDto> {
     }
 
     @RequestMapping(value ="/sort", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR + "')")
     ResponseEntity<List<UserDto>> sortByParam(@RequestParam(value = "sort", required = false) String filtredFiled){
         List<UserDto> dtos = userService.sortField(filtredFiled);
         return ResponseEntity.ok(dtos);
     }
 
     @RequestMapping(value ="/filter", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('" + Constants.ADMINISTRATOR + "')")
     ResponseEntity<List<UserDto>> filterByParam(@RequestParam(value = "filterType", required = false) String filterType,
                                                 @RequestParam(value = "param", required = false) String param){
         List<UserDto> dtos = userService.filterField(filterType, param);

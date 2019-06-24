@@ -50,7 +50,6 @@ public class BookController extends BaseController<Book, BookDto> {
     }
 
     @RequestMapping(value = "/filter", method = RequestMethod.GET)
-    @PreAuthorize("hasAnyAuthority('" + Constants.ADMINISTRATOR + ", " + Constants.CLIENT + "')")
     ResponseEntity<List<BookDto>> filterByParam(@RequestParam(value = "filter", required = false) String filterType,
             @RequestParam(value = "param", required = false) String param) {
         List<BookDto> dtos = bookService.filterField(filterType, param);

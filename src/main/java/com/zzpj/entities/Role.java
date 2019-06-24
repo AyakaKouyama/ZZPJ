@@ -3,7 +3,11 @@ package com.zzpj.entities;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 @Data
 @NoArgsConstructor
@@ -15,9 +19,8 @@ import javax.persistence.*;
         @NamedQuery(name = "Role.findByName", query = "SELECT r FROM Role r WHERE r.name = :name")
 })
 
-public class Role extends BaseEntity{
+public class Role extends BaseEntity {
 
     @Column(name = "name", unique = true, nullable = false)
     private String name;
-
 }

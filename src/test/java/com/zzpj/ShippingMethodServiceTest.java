@@ -27,10 +27,11 @@ public class ShippingMethodServiceTest {
     private ModelMapper modelMapper = new ModelMapper();
 
     @InjectMocks
-    ShippingMethodServiceImpl shippingMethodService = new ShippingMethodServiceImpl(shippingMethodRepository, modelMapper);
+    ShippingMethodServiceImpl shippingMethodService = new ShippingMethodServiceImpl(shippingMethodRepository,
+            modelMapper);
 
     @Test
-    public void shouldSortByName(){
+    public void shouldSortByName() {
         when(shippingMethodRepository.findAll()).thenReturn(createShippingMethodList());
 
         List<ShippingMethodDto> sorted = shippingMethodService.sortField("name");
@@ -42,7 +43,7 @@ public class ShippingMethodServiceTest {
     }
 
     @Test
-    public void shouldSortByPrice(){
+    public void shouldSortByPrice() {
         when(shippingMethodRepository.findAll()).thenReturn(createShippingMethodList());
 
         List<ShippingMethodDto> sorted = shippingMethodService.sortField("price");
@@ -54,7 +55,7 @@ public class ShippingMethodServiceTest {
     }
 
     @Test
-    public void shouldFilterByPrice(){
+    public void shouldFilterByPrice() {
         when(shippingMethodRepository.findAll()).thenReturn(createShippingMethodList());
 
         List<ShippingMethodDto> sorted = shippingMethodService.filterField("priceLowerThan", "16.0");
@@ -65,7 +66,7 @@ public class ShippingMethodServiceTest {
     }
 
     @Test
-    public void shouldFilterByPhraseInName(){
+    public void shouldFilterByPhraseInName() {
         when(shippingMethodRepository.findAll()).thenReturn(createShippingMethodList());
 
         List<ShippingMethodDto> sorted = shippingMethodService.filterField("phraseInName", "a");
@@ -73,8 +74,7 @@ public class ShippingMethodServiceTest {
         assertThat(sorted.get(0).getName()).isSameAs("a");
     }
 
-    private List<ShippingMethod> createShippingMethodList()
-    {
+    private List<ShippingMethod> createShippingMethodList() {
         List<ShippingMethod> shippingMethodList = new ArrayList<>();
 
         ShippingMethod shippingMethod1 = new ShippingMethod();
@@ -104,6 +104,4 @@ public class ShippingMethodServiceTest {
 
         return shippingMethodList;
     }
-
-
 }

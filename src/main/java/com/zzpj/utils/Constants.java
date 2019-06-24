@@ -15,5 +15,4 @@ public interface Constants {
     String ORDER_DESCRIPTION = "Zakup książek";
     String WAITING_FOR_PAYMENT_STATUS = "WAITING_FOR_PAYMENT";
     String PAID_STATUS = "PAID";
-    String CANCELED_STATUS = "CANCELED";
 }

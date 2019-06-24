@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/purchases")
@@ -30,7 +31,14 @@ public class PurchaseController extends BaseController<Purchase, PurchaseDto> {
     }
 
     @Override
-    @PreAuthorize("hasAuthority('" + Constants.CLIENT + "')")
+    @PreAuthorize("hasAnyAuthority('" + Constants.ADMINISTRATOR + ", " + Constants.CLIENT + "')")
+    @RequestMapping(method = RequestMethod.GET)
+    ResponseEntity<List<PurchaseDto>> findAll() {
+        return super.findAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAnyAuthority('" + Constants.ADMINISTRATOR + ", " + Constants.CLIENT + "')")
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity add(@Valid @RequestBody PurchaseDto dto) {
         Object principal = SecurityContextHolder.getContext().getAuthentication();

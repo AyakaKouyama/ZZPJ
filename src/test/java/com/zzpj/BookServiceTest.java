@@ -43,7 +43,10 @@ public class BookServiceTest {
     private ModelMapper modelMapper = new ModelMapper();
 
     @InjectMocks
-    BookServiceImpl bookService = new BookServiceImpl(bookRepository, categoryRepository, publisherRepository, modelMapper);
+    BookServiceImpl bookService = new BookServiceImpl(bookRepository,
+            categoryRepository,
+            publisherRepository,
+            modelMapper);
 
     @Test
     public void shouldThrowEntityNotFoundExceptionWhenCategoryDoesNotExists() {
@@ -65,7 +68,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void shouldSortByTitle(){
+    public void shouldSortByTitle() {
         when(bookRepository.findAll()).thenReturn(createBookList());
 
         List<BookDto> sorted = bookService.sortField("title");
@@ -78,7 +81,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void shouldSortByAuthor(){
+    public void shouldSortByAuthor() {
         when(bookRepository.findAll()).thenReturn(createBookList());
 
         List<BookDto> sorted = bookService.sortField("author");
@@ -91,7 +94,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void shouldSortByPrice(){
+    public void shouldSortByPrice() {
         when(bookRepository.findAll()).thenReturn(createBookList());
 
         List<BookDto> sorted = bookService.sortField("price");
@@ -104,7 +107,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void shouldSortByNumberOfPages(){
+    public void shouldSortByNumberOfPages() {
         when(bookRepository.findAll()).thenReturn(createBookList());
 
         List<BookDto> sorted = bookService.sortField("numberOfPages");
@@ -117,7 +120,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void shouldFilterByTitle(){
+    public void shouldFilterByTitle() {
         when(bookRepository.findAll()).thenReturn(createBookListForFilters());
 
         List<BookDto> sorted = bookService.titleFilter("Bastion");
@@ -127,7 +130,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void shouldFilterByPhraseInTitle(){
+    public void shouldFilterByPhraseInTitle() {
         when(bookRepository.findAll()).thenReturn(createBookListForFilters());
 
         List<BookDto> sorted = bookService.phraseInTitleFilter("lodowego");
@@ -137,7 +140,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void shouldFilterByAuthor(){
+    public void shouldFilterByAuthor() {
         when(bookRepository.findAll()).thenReturn(createBookListForFilters());
 
         List<BookDto> sorted = bookService.authorFilter("Kuf Drahrepus");
@@ -146,7 +149,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void shouldFilterByPrices(){
+    public void shouldFilterByPrices() {
         when(bookRepository.findAll()).thenReturn(createBookListForFilters());
 
         List<BookDto> sorted = bookService.priceFilter("30.0", "40.0");
@@ -220,7 +223,7 @@ public class BookServiceTest {
     }
 
 
-    private List<Book> createBookList(){
+    private List<Book> createBookList() {
         List<Book> books = new ArrayList<>();
 
         Book book = new Book();
@@ -268,7 +271,7 @@ public class BookServiceTest {
         return books;
     }
 
-    private List<Book> createBookListForFilters(){
+    private List<Book> createBookListForFilters() {
         List<Book> books = new ArrayList<>();
 
         Book book = new Book();
@@ -315,5 +318,4 @@ public class BookServiceTest {
 
         return books;
     }
-
 }

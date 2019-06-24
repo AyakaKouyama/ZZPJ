@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoryServiceImpl extends BaseServiceImpl<CategoryRepository, Category, CategoryDto> implements CategoryService {
+public class CategoryServiceImpl extends BaseServiceImpl<CategoryRepository, Category, CategoryDto> implements
+        CategoryService {
 
     @Autowired
     public CategoryServiceImpl(CategoryRepository categoryRepository, ModelMapper modelMapper) {

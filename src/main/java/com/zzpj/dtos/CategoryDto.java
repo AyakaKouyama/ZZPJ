@@ -1,12 +1,11 @@
 package com.zzpj.dtos;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @JsonPropertyOrder({"id", "name", "version"})
 public class CategoryDto {
 
